@@ -1,0 +1,42 @@
+.post {
+    padding-block: 5rem 7rem;
+}
+
+.post > header {
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.post > header h1 {
+    max-width: 16em;
+    margin-block: 1rem 1.5rem;
+    font-size: clamp(2.25rem, 7vw, 3.8rem);
+}
+
+.post > header > p:last-child {
+    max-width: 36em;
+    margin-bottom: 0;
+    color: var(--muted);
+}
+
+.post > div {
+    padding-top: 2.5rem;
+}
+
+.post > div h2 {
+    margin-block: 2.75rem 1rem;
+}
+
+.post > div p {
+    margin-bottom: 1.5rem;
+}
+
+.post > div a {
+    overflow-wrap: anywhere;
+}
+
+.post > div > a:last-child {
+    display: inline-block;
+    margin-top: 2rem;
+    color: var(--muted);
+}
