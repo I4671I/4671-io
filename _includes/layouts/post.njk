@@ -26,7 +26,7 @@ bodyClass: post-page
       </header>
       <div class="post-content">
         {{ content | safe }}
-        <a class="back-link" href="/articles.html">← 返回文章列表</a>
+        <a class="back-link" href="{{ '/articles.html' | sitePath }}">← 返回文章列表</a>
       </div>
     </article>
   </main>

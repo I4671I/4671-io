@@ -1,4 +1,9 @@
 export default function (eleventyConfig) {
+  const sitePath = (value) => {
+    const path = String(value || "/");
+    return path.startsWith("/") ? path : `/${path}`;
+  };
+
   eleventyConfig.addPassthroughCopy("assets");
 
   const getPosts = (collectionApi) =>
@@ -62,8 +67,10 @@ export default function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter("tagUrl", (tag) =>
-    `/tags/${encodeURIComponent(String(tag))}/`
+    sitePath(`/tags/${encodeURIComponent(String(tag))}/`)
   );
+
+  eleventyConfig.addFilter("sitePath", sitePath);
 
   eleventyConfig.addFilter("getAllTags", (collection) => {
     const tags = new Set();

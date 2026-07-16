@@ -1,8 +1,8 @@
 <header class="site-header">
-  <a class="site-name" href="/">{{ site.name }}</a>
+  <a class="site-name" href="{{ '/' | sitePath }}">{{ site.name }}</a>
   <nav aria-label="主导航">
-    <a href="/" {% if nav == "home" %}aria-current="page"{% endif %}>首页</a>
-    <a href="/articles.html" {% if nav == "articles" %}aria-current="page"{% endif %}>文章</a>
-    <a href="/about.html" {% if nav == "about" %}aria-current="page"{% endif %}>关于</a>
+    <a href="{{ '/' | sitePath }}" {% if nav == "home" %}aria-current="page"{% endif %}>首页</a>
+    <a href="{{ '/articles.html' | sitePath }}" {% if nav == "articles" %}aria-current="page"{% endif %}>文章</a>
+    <a href="{{ '/about.html' | sitePath }}" {% if nav == "about" %}aria-current="page"{% endif %}>关于</a>
   </nav>
 </header>

@@ -6,7 +6,7 @@
         <time datetime="{{ post.date | htmlDateString }}">{{ post.date | displayDate }}</time>
         {% if post.data.readingTime %}<span>·</span><span>阅读约 {{ post.data.readingTime }} 分钟</span>{% endif %}
       </p>
-      <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+      <h3><a href="{{ post.url | sitePath }}">{{ post.data.title }}</a></h3>
       {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}
     </div>
   </article>

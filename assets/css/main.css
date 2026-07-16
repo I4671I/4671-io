@@ -95,8 +95,7 @@ body:not(.home-page) > main,
     margin-inline: auto;
 }
 
-.site-header,
-.home-nav {
+.site-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -283,17 +282,12 @@ nav a[aria-current="page"] {
     padding-bottom: 7rem;
 }
 
-.home-nav {
-    margin-bottom: 5rem;
-}
-
 @media (max-width: 560px) {
     body {
         font-size: 16px;
     }
 
-    .site-header,
-    .home-nav {
+    .site-header {
         align-items: flex-start;
         gap: 1rem;
     }
@@ -313,10 +307,6 @@ nav a[aria-current="page"] {
 
     .section-heading {
         align-items: flex-end;
-    }
-
-    .home-nav {
-        margin-bottom: 3rem;
     }
 
     .site-footer {

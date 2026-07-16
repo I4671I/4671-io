@@ -1,5 +1,5 @@
 <aside class="article-sidebar" aria-label="文章导航">
-  <a class="sidebar-title" href="/articles.html">全部文章</a>
+  <a class="sidebar-title" href="{{ '/articles.html' | sitePath }}">全部文章</a>
 
   <div class="sidebar-section">
     <p class="sidebar-heading">Archive</p>
@@ -7,7 +7,7 @@
     {% for group in yearGroups %}
       <p class="sidebar-year">{{ group.year }}</p>
       {% for item in group.posts %}
-        <a href="{{ item.url }}" {% if page.url == item.url %}aria-current="page"{% endif %}>
+        <a href="{{ item.url | sitePath }}" {% if page.url == item.url %}aria-current="page"{% endif %}>
           {{ item.data.title }}
         </a>
       {% endfor %}

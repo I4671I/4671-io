@@ -12,26 +12,17 @@ hideHeader: true
     <h1 id="welcome-title">to</h1>
     <p class="welcome-line">my website.</p>
     <a class="scroll-cue" href="#latest" aria-label="向下查看最新文章">
-      <span>Scroll</span>
       <span aria-hidden="true">↓</span>
     </a>
   </section>
 
   <section id="latest" class="home-content">
-    <header class="home-nav">
-      <a class="site-name" href="/">{{ site.name }}</a>
-      <nav aria-label="主导航">
-        <a href="/articles.html">文章</a>
-        <a href="/about.html">关于</a>
-      </nav>
-    </header>
-
     <div class="section-heading">
       <div>
         <p>RECENT WRITING</p>
         <h2>最新文章</h2>
       </div>
-      <a href="/articles.html">查看全部 →</a>
+      <a href="{{ '/articles.html' | sitePath }}">查看全部 →</a>
     </div>
 
     <section class="listing" aria-label="最新文章">
