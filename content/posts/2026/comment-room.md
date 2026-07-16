@@ -2,12 +2,9 @@
 title: 如何为静态博客添加一间评论室
 date: 2026-07-15
 description: 从静态页面的边界出发，选择一种简单、安静且容易维护的交流方式。
-readingTime: 5
 tags:
   - 建站
   - 评论
-layout: layouts/post.njk
-permalink: posts/2026/comment-room.html
 ---
 
 静态网站没有数据库，也没有持续运行的后端程序。页面生成并发布之后，只是一组 HTML、CSS 和图片文件。因此，当我想给博客增加评论功能时，第一个问题并不是“评论框应该是什么颜色”，而是“评论内容要保存在哪里”。

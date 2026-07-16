@@ -36,8 +36,7 @@
     margin-top: 2.5rem;
 }
 
-.sidebar-heading,
-.sidebar-year {
+.sidebar-heading {
     margin: 0;
     color: var(--muted);
     font-size: 0.75rem;
@@ -45,19 +44,59 @@
     text-transform: uppercase;
 }
 
-.sidebar-year {
-    margin-top: 0.75rem;
-    color: var(--accent);
+.sidebar-year-group {
+    border-bottom: 1px solid var(--border);
 }
 
-.sidebar-section > a {
+.sidebar-year-group summary {
+    display: flex;
+    align-items: baseline;
+    padding-block: 0.65rem;
+    color: var(--accent);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    list-style: none;
+}
+
+.sidebar-year-group summary::-webkit-details-marker {
+    display: none;
+}
+
+.sidebar-year-group summary::before {
+    content: "+";
+    width: 1rem;
+    color: var(--muted);
+}
+
+.sidebar-year-group[open] summary::before {
+    content: "−";
+}
+
+.sidebar-year-group summary span:first-child {
+    margin-right: auto;
+}
+
+.sidebar-year-group summary span:last-child {
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+}
+
+.sidebar-posts {
+    display: grid;
+    gap: 0.65rem;
+    padding: 0.35rem 0 1rem 1rem;
+}
+
+.sidebar-posts a {
     color: var(--muted);
     font-size: 0.88rem;
     line-height: 1.45;
     text-decoration: none;
 }
 
-.sidebar-section > a[aria-current="page"] {
+.sidebar-posts a[aria-current="page"] {
     color: var(--text-strong);
 }
 
@@ -182,8 +221,7 @@
         margin-top: 0;
     }
 
-    .sidebar-section > a,
-    .sidebar-year {
+    .sidebar-year-group {
         display: none;
     }
 

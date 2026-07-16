@@ -21,7 +21,7 @@ permalink: articles.html
     {% include "components/post-list.njk" %}
   </section>
 
-  {% set allTags = collections.posts | getAllTags %}
+  {% set allTags = collections.tagList %}
   {% if allTags.length %}
     <section class="archive-tags" aria-labelledby="tags-title">
       <h2 id="tags-title">Tags</h2>

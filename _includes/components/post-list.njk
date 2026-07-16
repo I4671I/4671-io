@@ -4,7 +4,7 @@
     <div>
       <p class="meta">
         <time datetime="{{ post.date | htmlDateString }}">{{ post.date | displayDate }}</time>
-        {% if post.data.readingTime %}<span>·</span><span>阅读约 {{ post.data.readingTime }} 分钟</span>{% endif %}
+        <span>·</span><span>阅读约 {{ post.data.readingTime or (post.templateContent | readingTime) }} 分钟</span>
       </p>
       <h3><a href="{{ post.url | sitePath }}">{{ post.data.title }}</a></h3>
       {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}

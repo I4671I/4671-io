@@ -5,12 +5,19 @@
     <p class="sidebar-heading">Archive</p>
     {% set yearGroups = collections.posts | groupByYear %}
     {% for group in yearGroups %}
-      <p class="sidebar-year">{{ group.year }}</p>
-      {% for item in group.posts %}
-        <a href="{{ item.url | sitePath }}" {% if page.url == item.url %}aria-current="page"{% endif %}>
-          {{ item.data.title }}
-        </a>
-      {% endfor %}
+      <details class="sidebar-year-group" {% if group.year == (date | year) %}open{% endif %}>
+        <summary>
+          <span>{{ group.year }}</span>
+          <span>{{ group.posts.length }} 篇</span>
+        </summary>
+        <div class="sidebar-posts">
+          {% for item in group.posts %}
+            <a href="{{ item.url | sitePath }}" {% if page.url == item.url %}aria-current="page"{% endif %}>
+              {{ item.data.title }}
+            </a>
+          {% endfor %}
+        </div>
+      </details>
     {% endfor %}
   </div>
 

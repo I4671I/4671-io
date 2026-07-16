@@ -12,7 +12,7 @@ bodyClass: post-page
       <header>
         <p class="meta">
           <time datetime="{{ date | htmlDateString }}">{{ date | displayDate }}</time>
-          {% if readingTime %}<span>·</span><span>阅读约 {{ readingTime }} 分钟</span>{% endif %}
+          <span>·</span><span>阅读约 {{ readingTime or (content | readingTime) }} 分钟</span>
         </p>
         <h1>{{ title }}</h1>
         {% if description %}<p>{{ description }}</p>{% endif %}

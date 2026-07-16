@@ -2,12 +2,9 @@
 title: 建立这个网站的第一天
 date: 2026-07-08
 description: 从一个标题和一句话开始，慢慢搭建属于自己的互联网角落。
-readingTime: 3
 tags:
   - 日常
   - 建站
-layout: layouts/post.njk
-permalink: posts/2026/first-day.html
 ---
 
 我一直想拥有一个属于自己的网页。

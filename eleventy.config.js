@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+
 export default function (eleventyConfig) {
   const sitePath = (value) => {
     const path = String(value || "/");
@@ -5,6 +8,40 @@ export default function (eleventyConfig) {
   };
 
   eleventyConfig.addPassthroughCopy("assets");
+  eleventyConfig.addPassthroughCopy({
+    "assets/images/b.png": "favicon.png"
+  });
+
+  eleventyConfig.on("eleventy.before", () => {
+    const postsDirectory = "content/posts";
+    const markdownFiles = fs
+      .readdirSync(postsDirectory, { recursive: true, withFileTypes: true })
+      .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
+      .map((entry) => path.join(entry.parentPath, entry.name));
+    const today = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Shanghai",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).format(new Date());
+
+    for (const file of markdownFiles) {
+      const source = fs.readFileSync(file, "utf8");
+      const frontMatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+      if (!frontMatter || /^date\s*:/m.test(frontMatter[1])) continue;
+
+      const updatedFrontMatter = frontMatter[1].replace(
+        /^(title\s*:.*)$/m,
+        `$1\ndate: ${today}`
+      );
+      const updatedSource = source.replace(
+        frontMatter[0],
+        `---\n${updatedFrontMatter}\n---`
+      );
+      fs.writeFileSync(file, updatedSource);
+      console.log(`[11ty] Added date ${today} to ${file}`);
+    }
+  });
 
   const getPosts = (collectionApi) =>
     collectionApi
@@ -72,14 +109,18 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter("sitePath", sitePath);
 
-  eleventyConfig.addFilter("getAllTags", (collection) => {
-    const tags = new Set();
-    for (const item of collection || []) {
-      for (const tag of item.data.tags || []) {
-        if (tag !== "post") tags.add(tag);
-      }
-    }
-    return [...tags].sort((a, b) => a.localeCompare(b, "zh-CN"));
+  eleventyConfig.addFilter("readingTime", (content) => {
+    const text = String(content || "")
+      .replace(/<[^>]*>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const chineseCharacters = (text.match(/[\u3400-\u9fff]/g) || []).length;
+    const latinWords = text
+      .replace(/[\u3400-\u9fff]/g, " ")
+      .match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g);
+    const minutes =
+      chineseCharacters / 400 + (latinWords ? latinWords.length : 0) / 200;
+    return Math.max(1, Math.ceil(minutes));
   });
 
   return {
