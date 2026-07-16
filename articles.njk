@@ -1,0 +1,35 @@
+---
+layout: layouts/base.njk
+title: 文章
+description: 4671 的个人博客文章归档。
+nav: articles
+permalink: articles.html
+---
+<main>
+  <section class="hero" aria-labelledby="archive-title">
+    <p>ARCHIVE</p>
+    <h1 id="archive-title">文章</h1>
+    <p>按时间保存写下的文字，也可以通过标签找到相近的内容。</p>
+  </section>
+
+  {% set posts = collections.posts %}
+  <section class="listing" aria-label="全部文章">
+    <header class="listing-header">
+      <h2>全部文章</h2>
+      <span>共 {{ posts.length }} 篇</span>
+    </header>
+    {% include "components/post-list.njk" %}
+  </section>
+
+  {% set allTags = collections.posts | getAllTags %}
+  {% if allTags.length %}
+    <section class="archive-tags" aria-labelledby="tags-title">
+      <h2 id="tags-title">Tags</h2>
+      <div class="tag-list">
+        {% for tag in allTags %}
+          <a href="{{ tag | tagUrl }}">#{{ tag }}</a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</main>

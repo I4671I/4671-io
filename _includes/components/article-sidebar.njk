@@ -1,0 +1,28 @@
+<aside class="article-sidebar" aria-label="文章导航">
+  <a class="sidebar-title" href="/articles.html">全部文章</a>
+
+  <div class="sidebar-section">
+    <p class="sidebar-heading">Archive</p>
+    {% set yearGroups = collections.posts | groupByYear %}
+    {% for group in yearGroups %}
+      <p class="sidebar-year">{{ group.year }}</p>
+      {% for item in group.posts %}
+        <a href="{{ item.url }}" {% if page.url == item.url %}aria-current="page"{% endif %}>
+          {{ item.data.title }}
+        </a>
+      {% endfor %}
+    {% endfor %}
+  </div>
+
+  {% set allTags = collections.tagList %}
+  {% if allTags.length %}
+    <div class="sidebar-section">
+      <p class="sidebar-heading">Tags</p>
+      <div class="tag-list">
+        {% for tag in allTags %}
+          <a href="{{ tag | tagUrl }}">#{{ tag }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</aside>

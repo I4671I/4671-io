@@ -1,0 +1,13 @@
+{% for post in posts %}
+  <article class="post-card">
+    <p aria-hidden="true">{{ loop.index | string | padStart(2, "0") }}</p>
+    <div>
+      <p class="meta">
+        <time datetime="{{ post.date | htmlDateString }}">{{ post.date | displayDate }}</time>
+        {% if post.data.readingTime %}<span>·</span><span>阅读约 {{ post.data.readingTime }} 分钟</span>{% endif %}
+      </p>
+      <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+      {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}
+    </div>
+  </article>
+{% endfor %}

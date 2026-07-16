@@ -1,3 +1,71 @@
+.post-page > .site-header,
+.post-page > .site-footer {
+    width: min(calc(100% - 2.5rem), var(--wide-width));
+}
+
+.reading-layout {
+    display: grid;
+    grid-template-columns: 250px minmax(0, var(--content-width));
+    gap: clamp(3rem, 7vw, 7rem);
+    width: min(calc(100% - 2.5rem), var(--wide-width));
+    margin-inline: auto;
+}
+
+.reading-layout > main {
+    min-width: 0;
+}
+
+.article-sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    max-height: 100vh;
+    padding-block: 5rem;
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    color: var(--text-strong);
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.sidebar-section {
+    display: grid;
+    gap: 0.65rem;
+    margin-top: 2.5rem;
+}
+
+.sidebar-heading,
+.sidebar-year {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.sidebar-year {
+    margin-top: 0.75rem;
+    color: var(--accent);
+}
+
+.sidebar-section > a {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    text-decoration: none;
+}
+
+.sidebar-section > a[aria-current="page"] {
+    color: var(--text-strong);
+}
+
+.article-sidebar .tag-list {
+    display: grid;
+    gap: 0.5rem;
+}
+
 .post {
     padding-block: 5rem 7rem;
 }
@@ -13,30 +81,118 @@
     font-size: clamp(2.25rem, 7vw, 3.8rem);
 }
 
-.post > header > p:last-child {
+.post > header > p:not(.meta) {
     max-width: 36em;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
     color: var(--muted);
 }
 
-.post > div {
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.post-tags a {
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-decoration: none;
+}
+
+.post-content {
     padding-top: 2.5rem;
 }
 
-.post > div h2 {
+.post-content h2 {
     margin-block: 2.75rem 1rem;
 }
 
-.post > div p {
+.post-content h3 {
+    margin-block: 2rem 0.8rem;
+}
+
+.post-content p,
+.post-content ul,
+.post-content ol,
+.post-content blockquote,
+.post-content pre {
     margin-bottom: 1.5rem;
 }
 
-.post > div a {
+.post-content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-block: 2rem;
+}
+
+.post-content blockquote {
+    margin-inline: 0;
+    padding-left: 1.25rem;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+}
+
+.post-content pre {
+    padding: 1.25rem;
+    overflow-x: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+}
+
+.post-content code {
+    font-size: 0.85em;
+}
+
+.post-content a {
     overflow-wrap: anywhere;
 }
 
-.post > div > a:last-child {
+.back-link {
     display: inline-block;
-    margin-top: 2rem;
+    margin-top: 3rem;
     color: var(--muted);
+}
+
+@media (max-width: 860px) {
+    .reading-layout {
+        display: block;
+    }
+
+    .article-sidebar {
+        position: static;
+        display: flex;
+        gap: 1.5rem;
+        align-items: baseline;
+        max-height: none;
+        padding-block: 2rem 0;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-title,
+    .sidebar-section {
+        flex: 0 0 auto;
+    }
+
+    .sidebar-section {
+        display: flex;
+        gap: 1rem;
+        align-items: baseline;
+        margin-top: 0;
+    }
+
+    .sidebar-section > a,
+    .sidebar-year {
+        display: none;
+    }
+
+    .article-sidebar .tag-list {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .post {
+        padding-top: 4rem;
+    }
 }

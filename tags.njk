@@ -1,0 +1,22 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.tagList
+  size: 1
+  alias: tag
+eleventyComputed:
+  title: "标签：{{ tag }}"
+  description: "所有带有“{{ tag }}”标签的文章。"
+---
+<main>
+  <section class="hero compact-hero" aria-labelledby="tag-title">
+    <p>TAG</p>
+    <h1 id="tag-title">#{{ tag }}</h1>
+    <p>所有带有这个标签的文章。</p>
+  </section>
+
+  <section class="listing" aria-label="{{ tag }} 标签文章">
+    {% set posts = collections[tag] | reverse %}
+    {% include "components/post-list.njk" %}
+  </section>
+</main>

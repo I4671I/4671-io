@@ -1,0 +1,33 @@
+---
+layout: layouts/base.njk
+postLayout: true
+nav: articles
+bodyClass: post-page
+---
+<div class="reading-layout">
+  {% include "components/article-sidebar.njk" %}
+
+  <main>
+    <article class="post">
+      <header>
+        <p class="meta">
+          <time datetime="{{ date | htmlDateString }}">{{ date | displayDate }}</time>
+          {% if readingTime %}<span>·</span><span>阅读约 {{ readingTime }} 分钟</span>{% endif %}
+        </p>
+        <h1>{{ title }}</h1>
+        {% if description %}<p>{{ description }}</p>{% endif %}
+        {% if tags.length %}
+          <div class="post-tags">
+            {% for tag in tags %}
+              {% if tag != "post" %}<a href="{{ tag | tagUrl }}">#{{ tag }}</a>{% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </header>
+      <div class="post-content">
+        {{ content | safe }}
+        <a class="back-link" href="/articles.html">← 返回文章列表</a>
+      </div>
+    </article>
+  </main>
+</div>

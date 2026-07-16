@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Eleventy build output and caches
+_site/
+.cache/
+.eleventy-cache/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Package-manager logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor and operating-system files
+.DS_Store
+.idea/
+*.swp
+*.swo

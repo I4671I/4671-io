@@ -1,0 +1,14 @@
+{
+  "name": "4671-io",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "4671's Markdown-driven personal website",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}

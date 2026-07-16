@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ description or site.description }}">
+    <title>{% if titleOnly %}{{ title }}{% else %}{% if title %}{{ title }}｜{% endif %}{{ site.name }}{% endif %}</title>
+    <link rel="icon" type="image/png" sizes="64x64" href="/assets/images/b.png">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    {% if postLayout %}<link rel="stylesheet" href="/assets/css/post.css">{% endif %}
+  </head>
+  <body class="{{ bodyClass or '' }}">
+    {% if not hideHeader %}
+      {% include "components/header.njk" %}
+    {% endif %}
+
+    {{ content | safe }}
+
+    {% if not hideFooter %}
+      {% include "components/footer.njk" %}
+    {% endif %}
+  </body>
+</html>
