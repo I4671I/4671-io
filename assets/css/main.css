@@ -325,6 +325,14 @@ nav a[aria-current="page"] {
   padding-bottom: 0;
 }
 
+.home-content h2 {
+  font-size: clamp(1.6rem, 4vw, 2rem);
+}
+
+.home-content .section-heading {
+  align-items: center;
+}
+
 .home-about {
   padding-block: 2rem;
   border-top: 1px solid var(--border);
@@ -335,22 +343,7 @@ nav a[aria-current="page"] {
 }
 
 .home-about a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   text-decoration: none;
-}
-
-.home-about a span {
-  color: var(--muted);
-  transition: color 160ms ease, transform 160ms ease;
-}
-
-.home-about a:hover span,
-.home-about a:focus-visible span,
-.home-about a:active span {
-  color: var(--special-color);
-  transform: translateX(0.2rem);
 }
 
 nav a:hover,

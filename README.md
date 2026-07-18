@@ -1,4 +1,4 @@
-# 4671's page
+# 4671's room
 
 一个使用 [Eleventy](https://www.11ty.dev/) 生成的 Markdown 静态个人网站。
 
