@@ -52,7 +52,7 @@
     display: flex;
     align-items: baseline;
     padding-block: 0.65rem;
-    color: var(--accent);
+    color: var(--special-color);
     font-size: 0.78rem;
     letter-spacing: 0.08em;
     cursor: pointer;
@@ -169,7 +169,7 @@
     margin-inline: 0;
     padding-left: 1.25rem;
     color: var(--muted);
-    border-left: 2px solid var(--accent);
+    border-left: 2px solid var(--special-color);
 }
 
 .post-content pre {

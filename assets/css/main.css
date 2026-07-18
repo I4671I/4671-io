@@ -21,7 +21,21 @@
     --text: #ddd8cd;
     --text-strong: #f2eee5;
     --muted: #918e86;
-    --accent: #c65d4b;
+    /*
+     * One Monokai syntax palette. `theme-colors.js` picks from these for
+     * each accent-bearing piece of text. Red is the no-JavaScript fallback.
+     */
+    --syntax-comment: #676f7d;
+    --syntax-yellow: #e5c07b;
+    --syntax-purple: #c678dd;
+    --syntax-default: #abb2bf;
+    --syntax-cyan: #56b6c2;
+    --syntax-red: #e06c75;
+    --syntax-blue: #61afef;
+    --syntax-green: #98c379;
+    --syntax-orange: #d19a66;
+    --syntax-diff: #75715e;
+    --special-color: var(--syntax-red);
     --border: #33343a;
     --content-width: 760px;
     --wide-width: 1120px;
@@ -47,14 +61,14 @@ body {
 
 a {
     color: inherit;
-    text-decoration-color: var(--accent);
+    text-decoration-color: var(--special-color);
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25em;
 }
 
 a:hover,
 a:focus-visible {
-    color: var(--accent);
+    color: var(--special-color);
 }
 
 h1,
@@ -144,7 +158,7 @@ nav a[aria-current="page"] {
 .hero > p:first-child,
 .section-heading > div > p {
     margin-bottom: 1.4rem;
-    color: var(--accent);
+    color: var(--special-color);
 }
 
 .hero > p:last-child {
@@ -205,7 +219,7 @@ nav a[aria-current="page"] {
 
 .post-card > p:first-child {
     margin: 0;
-    color: var(--accent);
+    color: var(--special-color);
 }
 
 .meta {
