@@ -179,7 +179,7 @@ nav a[aria-current="page"] {
 .listing-header,
 .section-heading {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   padding-block: 2rem;
 }
@@ -329,10 +329,6 @@ nav a[aria-current="page"] {
   font-size: clamp(1.6rem, 4vw, 2rem);
 }
 
-.home-content .section-heading {
-  align-items: center;
-}
-
 .home-about {
   padding-block: 2rem;
   border-top: 1px solid var(--border);
@@ -368,7 +364,7 @@ nav a[aria-current="page"],
   }
 
   .site-header {
-    align-items: flex-start;
+    align-items: center;
     gap: 1rem;
   }
 
@@ -386,7 +382,7 @@ nav a[aria-current="page"],
   }
 
   .section-heading {
-    align-items: flex-end;
+    align-items: center;
   }
 
 }

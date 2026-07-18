@@ -71,7 +71,7 @@
 
 .sidebar-year-group summary {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   padding-block: 2rem;
   color: var(--special-color);
   font-size: 0.78rem;
@@ -94,6 +94,10 @@
   content: "−";
 }
 
+.sidebar-year-group[open] summary {
+  padding-bottom: 0.65rem;
+}
+
 .sidebar-year-group summary span:first-child {
   margin-right: auto;
 }
@@ -107,7 +111,7 @@
 .sidebar-posts {
   display: grid;
   gap: 0.65rem;
-  padding: 0.35rem 0 2rem 1rem;
+  padding: 0 0 2rem 1rem;
 }
 
 .sidebar-posts a {
@@ -289,7 +293,7 @@
     position: static;
     display: flex;
     gap: 1.5rem;
-    align-items: baseline;
+    align-items: center;
     max-height: none;
     padding-block: 2rem;
     overflow-x: auto;
@@ -304,7 +308,7 @@
   .sidebar-section {
     display: flex;
     gap: 1rem;
-    align-items: baseline;
+    align-items: center;
     margin-top: 0;
   }
 

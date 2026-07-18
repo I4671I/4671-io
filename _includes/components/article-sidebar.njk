@@ -2,7 +2,6 @@
   <a class="sidebar-title" href="{{ '/articles.html' | sitePath }}">全部文章</a>
 
   <div class="sidebar-section">
-    <p class="sidebar-heading">Archive</p>
     {% set yearGroups = collections.posts | groupByYear %}
     {% for group in yearGroups %}
       <details class="sidebar-year-group" {% if group.year == (date | year) %}open{% endif %}>
