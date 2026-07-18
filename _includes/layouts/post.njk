@@ -26,7 +26,37 @@ bodyClass: post-page
       </header>
       <div class="post-content">
         {{ content | safe }}
-        <a class="back-link" href="{{ '/articles.html' | sitePath }}">← 返回文章列表</a>
+        {% set previousPost = collections.posts | adjacentPost(page.url, -1) %}
+        {% set nextPost = collections.posts | adjacentPost(page.url, 1) %}
+        <nav class="post-navigation" aria-label="相邻文章">
+          <span>
+            {% if previousPost %}
+              <a
+                href="{{ previousPost.url | sitePath }}"
+                rel="prev"
+                aria-label="上一篇：{{ previousPost.data.title }}"
+                title="{{ previousPost.data.title }}"
+              >
+                <span aria-hidden="true">←</span>
+                <span class="post-navigation-title">{{ previousPost.data.title }}</span>
+              </a>
+            {% endif %}
+          </span>
+          <a class="back-link" href="{{ '/articles.html' | sitePath }}">返回文章列表</a>
+          <span>
+            {% if nextPost %}
+              <a
+                href="{{ nextPost.url | sitePath }}"
+                rel="next"
+                aria-label="下一篇：{{ nextPost.data.title }}"
+                title="{{ nextPost.data.title }}"
+              >
+                <span class="post-navigation-title">{{ nextPost.data.title }}</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            {% endif %}
+          </span>
+        </nav>
       </div>
     </article>
   </main>

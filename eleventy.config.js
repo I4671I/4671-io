@@ -99,6 +99,13 @@ export default function (eleventyConfig) {
     (items || []).slice(0, count)
   );
 
+  eleventyConfig.addFilter("adjacentPost", (items, currentUrl, offset) => {
+    const posts = items || [];
+    const currentIndex = posts.findIndex((item) => item.url === currentUrl);
+    if (currentIndex === -1) return null;
+    return posts[currentIndex + Number(offset)] || null;
+  });
+
   eleventyConfig.addFilter("padStart", (value, length, character = "0") =>
     String(value).padStart(length, character)
   );

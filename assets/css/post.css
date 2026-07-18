@@ -1,3 +1,24 @@
+@font-face {
+  font-family: "Consolas Web";
+  src:
+    local("Consolas"),
+    url("../fonts/consolas-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "SimSun Web";
+  src:
+    local("SimSun"),
+    local("宋体"),
+    url("../fonts/simsun-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
 .post-page > .site-header,
 .post-page > .site-footer {
   width: min(calc(100% - 2.5rem), var(--wide-width));
@@ -178,6 +199,15 @@
   border-left: 2px solid var(--special-color);
 }
 
+.post-content pre,
+.post-content pre code {
+  font-family:
+    "Consolas Web",
+    "SimSun Web",
+    "LXGW Zhuque Fangsong",
+    monospace;
+}
+
 .post-content pre {
   padding: 1.25rem;
   overflow-x: auto;
@@ -193,10 +223,44 @@
   overflow-wrap: anywhere;
 }
 
-.back-link {
-  display: inline-block;
+.post-navigation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
   margin-top: 3rem;
+  font-size: 0.9rem;
+}
+
+.post-navigation > span:last-child {
+  text-align: right;
+}
+
+.post-navigation > span {
+  min-width: 0;
+}
+
+.post-navigation a {
   color: var(--muted);
+  text-decoration: none;
+}
+
+.post-navigation > span a {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  max-width: 100%;
+}
+
+.post-navigation > span:last-child a {
+  justify-content: flex-end;
+}
+
+.post-navigation-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sidebar-posts a:hover,
@@ -206,6 +270,9 @@
 .post-tags a:hover,
 .post-tags a:focus-visible,
 .post-tags a:active,
+.post-navigation a:hover,
+.post-navigation a:focus-visible,
+.post-navigation a:active,
 .back-link:hover,
 .back-link:focus-visible,
 .back-link:active {
