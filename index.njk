@@ -29,5 +29,11 @@ hideHeader: true
       {% set posts = collections.posts | limit(3) %}
       {% include "components/post-list.njk" %}
     </section>
+
+    <section class="home-about" aria-labelledby="home-about-title">
+      <h2 id="home-about-title">
+        <a href="{{ '/about.html' | sitePath }}">关于我 <span aria-hidden="true">→</span></a>
+      </h2>
+    </section>
   </section>
 </main>

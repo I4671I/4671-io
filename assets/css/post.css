@@ -6,7 +6,7 @@
 .reading-layout {
   display: grid;
   grid-template-columns: 250px minmax(0, var(--content-width));
-  gap: clamp(3rem, 7vw, 7rem);
+  gap: 3rem;
   width: min(calc(100% - 2.5rem), var(--wide-width));
   margin-inline: auto;
 }
@@ -20,7 +20,7 @@
   top: 0;
   align-self: start;
   max-height: 100vh;
-  padding-block: 5rem;
+  padding-block: 2rem;
   overflow-y: auto;
 }
 
@@ -51,7 +51,7 @@
 .sidebar-year-group summary {
   display: flex;
   align-items: baseline;
-  padding-block: 0.65rem;
+  padding-block: 2rem;
   color: var(--special-color);
   font-size: 0.78rem;
   letter-spacing: 0.08em;
@@ -86,7 +86,7 @@
 .sidebar-posts {
   display: grid;
   gap: 0.65rem;
-  padding: 0.35rem 0 1rem 1rem;
+  padding: 0.35rem 0 2rem 1rem;
 }
 
 .sidebar-posts a {
@@ -106,11 +106,11 @@
 }
 
 .post {
-  padding-block: 5rem 7rem;
+  padding-block: 2rem;
 }
 
 .post > header {
-  padding-bottom: 2.5rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid var(--border);
 }
 
@@ -139,7 +139,13 @@
 }
 
 .post-content {
-  padding-top: 2.5rem;
+  padding-top: 2rem;
+}
+
+.post-content hr {
+  margin-block: 2rem;
+  border: 0;
+  border-top: 1px solid var(--border);
 }
 
 .post-content h2 {
@@ -193,6 +199,19 @@
   color: var(--muted);
 }
 
+.sidebar-posts a:hover,
+.sidebar-posts a:focus-visible,
+.sidebar-posts a:active,
+.sidebar-posts a[aria-current="page"],
+.post-tags a:hover,
+.post-tags a:focus-visible,
+.post-tags a:active,
+.back-link:hover,
+.back-link:focus-visible,
+.back-link:active {
+  color: var(--special-color);
+}
+
 @media (max-width: 860px) {
   .reading-layout {
     display: block;
@@ -204,7 +223,7 @@
     gap: 1.5rem;
     align-items: baseline;
     max-height: none;
-    padding-block: 2rem 0;
+    padding-block: 2rem;
     overflow-x: auto;
     border-bottom: 1px solid var(--border);
   }
@@ -231,6 +250,6 @@
   }
 
   .post {
-    padding-top: 4rem;
+    padding-top: 2rem;
   }
 }

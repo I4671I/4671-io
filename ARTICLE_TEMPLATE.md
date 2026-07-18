@@ -8,7 +8,7 @@ tags:
 # date: YYYY-MM-DD
 # permalink: posts/custom-address.html
 # layout: layouts/post.njk
-# readingTime: x
+# readingTime: x (min)
 ---
 
 正文
