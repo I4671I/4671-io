@@ -89,9 +89,6 @@ ${itemRules}`;
 
     renderedDiscussionSummary = summary;
     const countRule = `
-main .gsc-comments-count::before {
-  content: "${commentCount} 条评论";
-}
 main .gsc-reactions-count::before {
   content: "${reactionCount} 个表情";
 }`;

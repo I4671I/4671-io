@@ -75,24 +75,43 @@ main .gsc-header {
 }
 
 main .gsc-comments-count > a {
+  position: static;
+  display: inline;
+  width: auto;
+  height: auto;
+  padding: 0;
+  overflow: visible;
+  color: var(--color-fg-default);
+  font-size: inherit;
+  pointer-events: none;
+  user-select: text;
+}
+
+main .gsc-comments-count > a:hover,
+main .gsc-comments-count > a:focus-visible {
+  color: var(--color-fg-default) !important;
+}
+
+main .gsc-comments-count > a::after {
   position: absolute;
   top: 50%;
   right: 7.25rem;
   display: grid;
   width: 1.75rem;
   height: 1.75rem;
-  padding: 0;
-  overflow: visible;
   color: var(--color-fg-muted);
-  font-size: 0;
+  content: "↗";
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  pointer-events: auto;
   transform: translateY(-50%);
   place-items: center;
 }
 
-main .gsc-comments-count > a::after {
-  content: "↗";
-  font-size: 1rem;
-  line-height: 1;
+main .gsc-comments-count > a:hover::after,
+main .gsc-comments-count > a:focus-visible::after {
+  color: var(--giscus-link-color);
 }
 
 main .gsc-comment-header,
