@@ -7,6 +7,23 @@ if (container) {
   const encodeTheme = (css) =>
     `data:text/css;charset=utf-8,${encodeURIComponent(css)}`;
 
+  const frameObserver = new MutationObserver(() => {
+    const iframe = container.querySelector("iframe.giscus-frame");
+    if (!iframe || iframe.dataset.loadListenerAttached) return;
+
+    iframe.dataset.loadListenerAttached = "true";
+    iframe.addEventListener(
+      "load",
+      () => {
+        iframe.classList.add("is-loaded");
+        frameObserver.disconnect();
+      },
+      { once: true }
+    );
+  });
+
+  frameObserver.observe(container, { childList: true, subtree: true });
+
   const createAccentRules = () => {
     const colors = [
       "#e5c07b",
@@ -18,29 +35,34 @@ if (container) {
       "#d19a66"
     ];
 
-    for (let index = colors.length - 1; index > 0; index -= 1) {
-      const randomIndex = Math.floor(Math.random() * (index + 1));
-      [colors[index], colors[randomIndex]] = [
-        colors[randomIndex],
-        colors[index]
-      ];
-    }
+    const pickColor = () =>
+      colors[Math.floor(Math.random() * colors.length)];
+    const discussionColor = pickColor();
+    const commentBoxColor = pickColor();
+    const lastCommentColor = pickColor();
 
-    const itemRules = colors.map((_, index) => {
-      const color = colors[(index + 1) % colors.length];
+    const commentRules = colors.map((_, index) => `
+main .gsc-comment:nth-child(${colors.length}n + ${index + 1}) {
+  --giscus-link-color: ${pickColor()};
+}`).join("");
 
-      return `
-main .gsc-comment:nth-child(${colors.length}n + ${index + 1}),
+    const replyRules = colors.map((_, index) => `
 main .gsc-reply:nth-child(${colors.length}n + ${index + 1}) {
-  --giscus-link-color: ${color};
-}`;
-    }).join("");
+  --giscus-link-color: ${pickColor()};
+}`).join("");
 
     return `
 main {
-  --giscus-link-color: ${colors[0]};
+  --giscus-link-color: ${discussionColor};
 }
-${itemRules}`;
+${commentRules}
+${replyRules}
+main .gsc-comments > .gsc-comment-box {
+  --giscus-link-color: ${commentBoxColor};
+}
+main .gsc-timeline > .gsc-comment:not(:has(~ .gsc-comment)) {
+  --giscus-link-color: ${lastCommentColor};
+}`;
   };
 
   async function loadGiscus() {

@@ -363,9 +363,20 @@
   font-size: 0.9rem;
 }
 
-.giscus,
-.giscus-frame {
+.giscus {
   width: 100%;
+  background: var(--background);
+}
+
+.giscus-frame {
+  display: block;
+  width: 100%;
+  visibility: hidden;
+  background: var(--background);
+}
+
+.giscus-frame.is-loaded {
+  visibility: visible;
 }
 
 @media (max-width: 860px) {

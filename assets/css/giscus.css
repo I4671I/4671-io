@@ -234,58 +234,78 @@ main .gsc-comment > div {
 }
 
 main .gsc-comment-box-write:focus-within {
-  border-color: #5a5b62 !important;
-  box-shadow: 0 0 0 2px #5a5b62 !important;
+  border-radius: 0.375rem;
+  outline: none;
+  box-shadow: none !important;
+}
+
+main .gsc-comment-box-write:focus-within .gsc-comment-box-textarea,
+main .gsc-comment-box-write:focus-within .gsc-comment-box-textarea-extras {
+  border-color: var(--giscus-link-color) !important;
 }
 
 main .gsc-comment-box-textarea-extras {
   justify-content: flex-start;
 }
 
+main .gsc-comment-box-bottom > button.link-secondary {
+  color: var(--color-fg-muted) !important;
+  text-decoration: none !important;
+}
+
+main .gsc-comment-box-bottom > button.link-secondary:hover,
+main .gsc-comment-box-bottom > button.link-secondary:focus-visible {
+  color: var(--giscus-link-color) !important;
+}
+
 main .gsc-comment-box-tabs button.color-bg-canvas {
   border-color: #5a5b62 !important;
 }
 
+main .gsc-comment-box-is-reply {
+  --giscus-primary-button-bg: var(--color-btn-bg);
+}
+
 main .gsc-comment-box-buttons .btn-primary {
   color: var(--color-fg-default) !important;
-  background-color: transparent !important;
+  background-color: var(--giscus-primary-button-bg, transparent) !important;
   background-image: none !important;
-  border-color: var(--giscus-link-color) !important;
+  border-color: var(--color-border-default) !important;
   box-shadow: none !important;
 }
 
 main .gsc-comment-box-buttons .btn-primary:hover:not(:disabled),
 main .gsc-comment-box-buttons .btn-primary:active:not(:disabled) {
-  color: var(--color-fg-default) !important;
-  background-color: transparent !important;
-  border-color: color-mix(
-    in srgb,
-    var(--giscus-link-color) 80%,
-    white
-  ) !important;
+  color: var(--giscus-link-color) !important;
+  background-color: var(--giscus-primary-button-bg, transparent) !important;
+  border-color: var(--giscus-link-color) !important;
 }
 
 main .gsc-comment-box-buttons .btn-primary:focus-visible {
-  outline: 2px solid var(--giscus-link-color);
-  outline-offset: 2px;
+  color: var(--giscus-link-color) !important;
+  border-color: var(--giscus-link-color) !important;
+  outline: none;
   box-shadow: none !important;
 }
 
 main .gsc-comment-box-buttons .btn-primary:disabled {
   color: var(--color-fg-muted) !important;
-  background-color: transparent !important;
-  border-color: color-mix(
-    in srgb,
-    var(--giscus-link-color) 60%,
-    transparent
-  ) !important;
+  background-color: var(--giscus-primary-button-bg, transparent) !important;
+  border-color: var(--color-border-default) !important;
+}
+
+main .gsc-comment-box-buttons .btn:not(.btn-primary):hover,
+main .gsc-comment-box-buttons .btn:not(.btn-primary):active,
+main .gsc-comment-box-buttons .btn:not(.btn-primary):focus-visible {
+  color: var(--giscus-link-color) !important;
+  background-color: var(--color-btn-bg) !important;
+  border-color: var(--giscus-link-color) !important;
+  outline: none;
 }
 
 main .gsc-reply-box button:focus,
-main .gsc-reply-box button:focus-visible,
-main .gsc-comment-box-is-reply:focus-within {
-  border-color: #5a5b62 !important;
-  outline: 2px solid #5a5b62 !important;
-  outline-offset: -2px;
+main .gsc-reply-box button:focus-visible {
+  border-color: var(--giscus-link-color) !important;
+  outline: none;
   box-shadow: none !important;
 }
