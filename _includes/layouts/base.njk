@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | sitePath }}">
     {% if postLayout %}<link rel="stylesheet" href="{{ '/assets/css/post.css' | sitePath }}">{% endif %}
     <script src="{{ '/assets/js/theme-colors.js' | sitePath }}" defer></script>
+    {% if postLayout %}<script src="{{ '/assets/js/article-toc.js' | sitePath }}" defer></script>{% endif %}
   </head>
   <body class="{{ bodyClass or '' }}">
     {% if not hideHeader %}
