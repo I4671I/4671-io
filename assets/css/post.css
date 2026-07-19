@@ -284,6 +284,27 @@
   color: var(--special-color);
 }
 
+.comments {
+  margin-top: 4rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.comments h2 {
+  margin-bottom: 0.5rem;
+}
+
+.comments-note {
+  margin-bottom: 1.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.giscus,
+.giscus-frame {
+  width: 100%;
+}
+
 @media (max-width: 860px) {
   .reading-layout {
     display: block;

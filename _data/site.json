@@ -2,5 +2,12 @@
   "name": "4671's room",
   "author": "4671",
   "description": "4671 的个人网站。",
-  "year": 2026
+  "year": 2026,
+  "giscus": {
+    "enabled": true,
+    "repo": "I4671I/4671-io",
+    "repoId": "R_kgDOTX6bJQ",
+    "category": "Announcements",
+    "categoryId": "DIC_kwDOTX6bJc4DBf8h"
+  }
 }

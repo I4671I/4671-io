@@ -1,0 +1,182 @@
+@import url("https://giscus.app/themes/dark.css");
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("https://cdn.jsdelivr.net/gh/I4671I/4671-io@main/assets/fonts/source-serif-4-regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LXGW Zhuque Fangsong";
+  src: url("https://cdn.jsdelivr.net/gh/I4671I/4671-io@main/assets/fonts/lxgw-zhuque-fangsong-regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+html,
+body,
+main {
+  --font-family-sans: "Source Serif 4", "LXGW Zhuque Fangsong", serif;
+  --font-family-default: var(--font-family-sans);
+}
+
+main {
+  --color-fg-default: #ddd8cd;
+  --color-fg-muted: #918e86;
+  --color-fg-subtle: #676f7d;
+  --color-canvas-default: #111318;
+  --color-canvas-overlay: #17191f;
+  --color-canvas-inset: #111318;
+  --color-canvas-subtle: #17191f;
+  --color-border-default: #33343a;
+  --color-border-muted: #33343a;
+  --color-btn-text: #ddd8cd;
+  --color-btn-bg: #17191f;
+  --color-btn-hover-bg: #22252d;
+  --color-btn-active-bg: #292c35;
+  --color-btn-selected-bg: #292c35;
+  --color-accent-fg: #61afef;
+  --color-accent-emphasis: #4d8fc5;
+  --color-accent-muted: rgb(97 175 239 / 40%);
+  --color-accent-subtle: rgb(97 175 239 / 10%);
+  color-scheme: dark;
+  font-family: var(--font-family-default) !important;
+}
+
+main button,
+main input,
+main select,
+main textarea,
+main .gsc-comment,
+main .gsc-comment-box,
+main .gsc-reactions,
+main .markdown {
+  font-family: var(--font-family-default) !important;
+}
+
+main a {
+  text-decoration: none !important;
+}
+
+main a:hover,
+main a:focus-visible,
+main a:active {
+  color: var(--giscus-link-color) !important;
+  text-decoration: none !important;
+}
+
+main .gsc-header {
+  position: relative;
+}
+
+main .gsc-comments-count > a {
+  position: absolute;
+  top: 50%;
+  right: 7.25rem;
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  overflow: visible;
+  color: var(--color-fg-muted);
+  font-size: 0;
+  transform: translateY(-50%);
+  place-items: center;
+}
+
+main .gsc-comments-count > a::after {
+  content: "↗";
+  font-size: 1rem;
+  line-height: 1;
+}
+
+main .gsc-comment-header,
+main .gsc-reply-header {
+  position: relative;
+  padding-right: 3rem;
+}
+
+main .gsc-comment-author > a.link-secondary,
+main .gsc-reply-author > a.link-secondary {
+  position: static;
+  display: inline;
+  width: auto;
+  height: auto;
+  padding: 0;
+  overflow: visible;
+  color: var(--color-fg-muted);
+  font-size: inherit;
+  pointer-events: none;
+}
+
+main .gsc-comment-author > a.link-secondary::after,
+main .gsc-reply-author > a.link-secondary::after {
+  position: absolute;
+  top: 0.65rem;
+  right: 1rem;
+  display: grid;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  overflow: visible;
+  color: var(--color-fg-muted);
+  content: "↗";
+  cursor: pointer;
+  font-size: 0.95rem;
+  line-height: 1;
+  pointer-events: auto;
+  place-items: center;
+}
+
+main .gsc-reply-author > a.link-secondary::after {
+  top: 0.25rem;
+  right: 0;
+}
+
+main .gsc-comment-author > a.link-secondary:hover::after,
+main .gsc-comment-author > a.link-secondary:focus-visible::after,
+main .gsc-reply-author > a.link-secondary:hover::after,
+main .gsc-reply-author > a.link-secondary:focus-visible::after {
+  color: var(--giscus-link-color);
+}
+
+main .gsc-comment-author > a.link-secondary time,
+main .gsc-comment-author > a.link-secondary:hover time,
+main .gsc-comment-author > a.link-secondary:focus-visible time,
+main .gsc-reply-author > a.link-secondary time,
+main .gsc-reply-author > a.link-secondary:hover time,
+main .gsc-reply-author > a.link-secondary:focus-visible time {
+  color: var(--color-fg-muted) !important;
+}
+
+main .gsc-reactions-count > a {
+  display: none;
+}
+
+main .gsc-comment > div,
+main .gsc-comment .color-box-border-info {
+  border-color: var(--color-border-default) !important;
+}
+
+main .gsc-comment-box-write:focus-within {
+  border-color: #5a5b62 !important;
+  box-shadow: 0 0 0 2px #5a5b62 !important;
+}
+
+main .gsc-comment-box-tabs button.color-bg-canvas {
+  border-color: #5a5b62 !important;
+}
+
+main .gsc-reply-box button:focus,
+main .gsc-reply-box button:focus-visible,
+main .gsc-comment-box-is-reply:focus-within {
+  border-color: #5a5b62 !important;
+  outline: 2px solid #5a5b62 !important;
+  outline-offset: -2px;
+  box-shadow: none !important;
+}

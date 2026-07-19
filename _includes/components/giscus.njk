@@ -1,0 +1,15 @@
+{% if site.giscus.enabled and site.giscus.categoryId %}
+  <section class="comments" aria-labelledby="comments-title">
+    <h2 id="comments-title">评论</h2>
+    <p class="comments-note">使用 GitHub 账号参与讨论。</p>
+    <div
+      class="giscus"
+      data-giscus-container
+      data-repo="{{ site.giscus.repo }}"
+      data-repo-id="{{ site.giscus.repoId }}"
+      data-category="{{ site.giscus.category }}"
+      data-category-id="{{ site.giscus.categoryId }}"
+    ></div>
+    <script src="{{ '/assets/js/giscus.js' | sitePath }}" defer></script>
+  </section>
+{% endif %}
