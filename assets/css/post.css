@@ -213,7 +213,7 @@
   color: var(--text-strong);
   font-weight: 400;
   line-height: 1.35;
-  scroll-margin-top: 2rem;
+  scroll-margin-top: max(0px, calc(min(160px, 25vh) - 0.5rem));
 }
 
 .post-content h2 {
