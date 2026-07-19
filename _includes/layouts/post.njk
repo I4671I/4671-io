@@ -4,6 +4,7 @@ postLayout: true
 bodyClass: post-page
 ---
 <div class="reading-layout">
+  {% set headings = content | articleHeadings %}
   {% include "components/article-sidebar.njk" %}
 
   <main>
@@ -24,7 +25,7 @@ bodyClass: post-page
         {% endif %}
       </header>
       <div class="post-content">
-        {{ content | safe }}
+        {{ content | addHeadingIds | safe }}
         {% set previousPost = collections.posts | adjacentPost(page.url, -1) %}
         {% set nextPost = collections.posts | adjacentPost(page.url, 1) %}
         <nav class="post-navigation" aria-label="相邻文章">

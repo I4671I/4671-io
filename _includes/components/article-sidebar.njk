@@ -20,15 +20,14 @@
     {% endfor %}
   </div>
 
-  {% set allTags = collections.tagList %}
-  {% if allTags.length %}
+  {% if headings.length %}
     <div class="sidebar-section">
-      <p class="sidebar-heading">Tags</p>
-      <div class="tag-list">
-        {% for tag in allTags %}
-          <a href="{{ tag | tagUrl }}">#{{ tag }}</a>
+      <p class="sidebar-heading">文章目录</p>
+      <nav class="article-toc" aria-label="文章章节">
+        {% for heading in headings %}
+          <a class="toc-level-{{ heading.level }}" href="#{{ heading.id }}">{{ heading.text }}</a>
         {% endfor %}
-      </div>
+      </nav>
     </div>
   {% endif %}
 </aside>

@@ -2,6 +2,32 @@ import fs from "node:fs";
 import path from "node:path";
 
 export default function (eleventyConfig) {
+  const getArticleHeadings = (content) => {
+    const headings = [];
+    const headingPattern = /<h([23])([^>]*)>([\s\S]*?)<\/h\1>/gi;
+    let match;
+
+    while ((match = headingPattern.exec(String(content || "")))) {
+      const existingId = match[2].match(/\sid=(["'])(.*?)\1/i);
+      const text = match[3]
+        .replace(/<[^>]*>/g, "")
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .trim();
+
+      headings.push({
+        level: Number(match[1]),
+        id: existingId ? existingId[2] : `section-${headings.length + 1}`,
+        text
+      });
+    }
+
+    return headings;
+  };
+
   const sitePath = (value) => {
     const path = String(value || "/");
     return path.startsWith("/") ? path : `/${path}`;
@@ -115,6 +141,22 @@ export default function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter("sitePath", sitePath);
+
+  eleventyConfig.addFilter("articleHeadings", getArticleHeadings);
+
+  eleventyConfig.addFilter("addHeadingIds", (content) => {
+    const headings = getArticleHeadings(content);
+    let headingIndex = 0;
+
+    return String(content || "").replace(
+      /<h([23])([^>]*)>([\s\S]*?)<\/h\1>/gi,
+      (heading, level, attributes, innerHtml) => {
+        const articleHeading = headings[headingIndex++];
+        if (/\sid=(["']).*?\1/i.test(attributes)) return heading;
+        return `<h${level}${attributes} id="${articleHeading.id}">${innerHtml}</h${level}>`;
+      }
+    );
+  });
 
   eleventyConfig.addFilter("readingTime", (content) => {
     const text = String(content || "")
