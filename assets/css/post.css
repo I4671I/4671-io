@@ -142,6 +142,11 @@
   font-size: 0.82rem;
 }
 
+.article-toc .toc-level-4 {
+  padding-left: 2rem;
+  font-size: 0.78rem;
+}
+
 .post {
   padding-block: 2rem;
 }
@@ -391,6 +396,10 @@
   }
 
   .article-toc .toc-level-3 {
+    padding-left: 0;
+  }
+
+  .article-toc .toc-level-4 {
     padding-left: 0;
   }
 

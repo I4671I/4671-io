@@ -4,7 +4,7 @@ import path from "node:path";
 export default function (eleventyConfig) {
   const getArticleHeadings = (content) => {
     const headings = [];
-    const headingPattern = /<h([23])([^>]*)>([\s\S]*?)<\/h\1>/gi;
+    const headingPattern = /<h([2-4])([^>]*)>([\s\S]*?)<\/h\1>/gi;
     let match;
 
     while ((match = headingPattern.exec(String(content || "")))) {
@@ -149,7 +149,7 @@ export default function (eleventyConfig) {
     let headingIndex = 0;
 
     return String(content || "").replace(
-      /<h([23])([^>]*)>([\s\S]*?)<\/h\1>/gi,
+      /<h([2-4])([^>]*)>([\s\S]*?)<\/h\1>/gi,
       (heading, level, attributes, innerHtml) => {
         const articleHeading = headings[headingIndex++];
         if (/\sid=(["']).*?\1/i.test(attributes)) return heading;
