@@ -72,6 +72,11 @@ a:focus-visible {
   color: var(--special-color);
 }
 
+a:focus,
+summary:focus {
+  outline: none;
+}
+
 h1,
 h2,
 h3,
