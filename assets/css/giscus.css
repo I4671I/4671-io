@@ -177,8 +177,59 @@ main .gsc-reactions-count > a {
   display: none;
 }
 
-main .gsc-comment > div,
-main .gsc-comment .color-box-border-info {
+main .gsc-direct-reaction-button {
+  color: var(--giscus-link-color) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--giscus-link-color) 55%,
+    var(--color-border-default)
+  ) !important;
+}
+
+main .gsc-direct-reaction-button:hover:enabled {
+  background-color: color-mix(
+    in srgb,
+    var(--giscus-link-color) 14%,
+    transparent
+  ) !important;
+}
+
+main .gsc-direct-reaction-button.has-reacted,
+main .gsc-emoji-button.has-reacted {
+  color: var(--giscus-link-color) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--giscus-link-color) 18%,
+    transparent
+  ) !important;
+  border-color: var(--giscus-link-color) !important;
+}
+
+main .gsc-direct-reaction-button.has-reacted:hover:enabled,
+main .gsc-emoji-button.has-reacted:hover:enabled {
+  background-color: color-mix(
+    in srgb,
+    var(--giscus-link-color) 26%,
+    transparent
+  ) !important;
+}
+
+main .gsc-upvote-button.has-reacted {
+  color: var(--giscus-link-color) !important;
+}
+
+main .gsc-comment-author .color-box-border-info,
+main .gsc-reply-author .color-box-border-info {
+  color: var(--giscus-link-color) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--giscus-link-color) 12%,
+    transparent
+  );
+  border-color: var(--giscus-link-color) !important;
+}
+
+main .gsc-comment > div {
   border-color: var(--color-border-default) !important;
 }
 
@@ -199,7 +250,7 @@ main .gsc-comment-box-buttons .btn-primary {
   color: var(--color-fg-default) !important;
   background-color: transparent !important;
   background-image: none !important;
-  border-color: #238636 !important;
+  border-color: var(--giscus-link-color) !important;
   box-shadow: none !important;
 }
 
@@ -207,11 +258,15 @@ main .gsc-comment-box-buttons .btn-primary:hover:not(:disabled),
 main .gsc-comment-box-buttons .btn-primary:active:not(:disabled) {
   color: var(--color-fg-default) !important;
   background-color: transparent !important;
-  border-color: #2ea043 !important;
+  border-color: color-mix(
+    in srgb,
+    var(--giscus-link-color) 80%,
+    white
+  ) !important;
 }
 
 main .gsc-comment-box-buttons .btn-primary:focus-visible {
-  outline: 2px solid #2ea043;
+  outline: 2px solid var(--giscus-link-color);
   outline-offset: 2px;
   box-shadow: none !important;
 }
@@ -219,7 +274,11 @@ main .gsc-comment-box-buttons .btn-primary:focus-visible {
 main .gsc-comment-box-buttons .btn-primary:disabled {
   color: var(--color-fg-muted) !important;
   background-color: transparent !important;
-  border-color: rgb(35 134 54 / 60%) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--giscus-link-color) 60%,
+    transparent
+  ) !important;
 }
 
 main .gsc-reply-box button:focus,

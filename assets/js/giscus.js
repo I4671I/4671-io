@@ -26,11 +26,15 @@ if (container) {
       ];
     }
 
-    const itemRules = colors.map((color, index) => `
+    const itemRules = colors.map((_, index) => {
+      const color = colors[(index + 1) % colors.length];
+
+      return `
 main .gsc-comment:nth-child(${colors.length}n + ${index + 1}),
 main .gsc-reply:nth-child(${colors.length}n + ${index + 1}) {
   --giscus-link-color: ${color};
-}`).join("");
+}`;
+    }).join("");
 
     return `
 main {
