@@ -24,10 +24,13 @@ permalink: articles.html
   {% set allTags = collections.tagList %}
   {% if allTags.length %}
     <section class="archive-tags" aria-labelledby="tags-title">
-      <h2 id="tags-title">Tags</h2>
+      <h2 id="tags-title">标签</h2>
       <div class="tag-list">
         {% for tag in allTags %}
-          <a href="{{ tag | tagUrl }}">#{{ tag }}</a>
+          <a href="{{ tag | tagUrl }}">
+            <span>#{{ tag }}</span>
+            <span>共 {{ collections[tag].length }} 篇</span>
+          </a>
         {% endfor %}
       </div>
     </section>

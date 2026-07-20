@@ -243,13 +243,23 @@ nav a[aria-current="page"] {
 
 .tag-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem 1rem;
+  flex-direction: column;
 }
 
 .tag-list a {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-block: 0.65rem;
   color: var(--muted);
   text-decoration: none;
+}
+
+.tag-list a span:last-child {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
 }
 
 .site-footer {
