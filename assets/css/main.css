@@ -391,3 +391,6 @@ nav a[aria-current="page"],
   }
 
 }
+body.sidebar-scroll-locked {
+  overflow: hidden;
+}

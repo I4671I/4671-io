@@ -5,7 +5,19 @@ bodyClass: post-page
 ---
 <div class="reading-layout">
   {% set headings = content | articleHeadings %}
+  <button
+    class="sidebar-toggle"
+    type="button"
+    aria-controls="article-sidebar"
+    aria-expanded="false"
+    aria-label="打开文章导航"
+  >
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </button>
   {% include "components/article-sidebar.njk" %}
+  <button class="sidebar-backdrop" type="button" aria-label="关闭文章导航" tabindex="-1"></button>
 
   <main>
     <article class="post">
