@@ -1,11 +1,21 @@
 import fs from "node:fs";
 import path from "node:path";
 import { RenderPlugin } from "@11ty/eleventy";
+import katex from "katex";
+import texmath from "markdown-it-texmath";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
   eleventyConfig.amendLibrary("md", (markdownLibrary) => {
+    markdownLibrary.use(texmath, {
+      engine: katex,
+      delimiters: ["dollars", "brackets"],
+      katexOptions: {
+        throwOnError: false
+      }
+    });
+
     const renderToken = (tokens, index, options, environment, renderer) =>
       renderer.renderToken(tokens, index, options);
     const tableWrapperOpen =
@@ -94,6 +104,11 @@ export default function (eleventyConfig) {
   };
 
   eleventyConfig.addPassthroughCopy("assets");
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/katex/dist/katex.min.css":
+      "assets/vendor/katex/katex.min.css",
+    "node_modules/katex/dist/fonts": "assets/vendor/katex/fonts"
+  });
 
   eleventyConfig.on("eleventy.before", () => {
     const postsDirectory = "content/posts";
@@ -217,6 +232,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter("readingTime", (content) => {
     const text = String(content || "")
+      .replace(/<eqn?\b[^>]*>[\s\S]*?<\/eqn?>/gi, " ")
       .replace(/<[^>]*>/g, " ")
       .replace(/\s+/g, " ")
       .trim();

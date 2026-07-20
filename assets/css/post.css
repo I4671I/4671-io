@@ -415,6 +415,38 @@
   overflow-wrap: anywhere;
 }
 
+.post-content .katex {
+  font-size: 1em;
+}
+
+.post-content eq {
+  display: inline-block;
+}
+
+.post-content eqn {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: center;
+}
+
+.post-content section.eqno {
+  display: flex;
+  align-items: center;
+}
+
+.post-content section.eqno > eqn {
+  width: 100%;
+  margin-left: 3em;
+}
+
+.post-content section.eqno > span {
+  width: 3em;
+  flex-shrink: 0;
+  text-align: right;
+}
+
 .post-navigation {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);

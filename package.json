@@ -9,6 +9,8 @@
     "build": "eleventy"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "katex": "^0.18.1",
+    "markdown-it-texmath": "^1.0.0"
   }
 }
