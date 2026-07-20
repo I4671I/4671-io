@@ -297,6 +297,92 @@
   margin-block: 2rem;
 }
 
+.table-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 1.5rem;
+}
+
+.table-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.table-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.table-scroll-hint {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--special-color);
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  place-items: center;
+}
+
+.table-scroll-hint:hover,
+.table-scroll-hint:focus-visible,
+.table-scroll-hint:active {
+  color: var(--special-color);
+}
+
+.table-scroll-hint[hidden] {
+  display: none;
+}
+
+.table-scroll-left {
+  left: 0.5rem;
+}
+
+.table-scroll-right {
+  right: 0.5rem;
+}
+
+.post-content table {
+  width: auto;
+  margin-inline: auto;
+  border-collapse: collapse;
+}
+
+.post-content th,
+.post-content td {
+  padding: 0.65rem 0.8rem;
+  text-align: center;
+  vertical-align: middle;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  border: 1px solid var(--border);
+}
+
+.table-cell {
+  max-inline-size: 34ch;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.table-cell.has-long-content {
+  min-inline-size: min(8ch, 20vw);
+}
+
+.post-content th {
+  color: var(--text-strong);
+  font-weight: 400;
+}
+
 .post-content blockquote {
   margin-inline: 0;
   padding-left: 1.25rem;

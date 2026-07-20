@@ -5,6 +5,54 @@ import { RenderPlugin } from "@11ty/eleventy";
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
+  eleventyConfig.amendLibrary("md", (markdownLibrary) => {
+    const renderToken = (tokens, index, options, environment, renderer) =>
+      renderer.renderToken(tokens, index, options);
+    const tableWrapperOpen =
+      '<div class="table-wrapper"><div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0">';
+    const tableWrapperClose =
+      '<button class="table-scroll-hint table-scroll-left" type="button" aria-label="向左滚动表格" hidden>←</button><button class="table-scroll-hint table-scroll-right" type="button" aria-label="向右滚动表格" hidden>→</button></div>';
+
+    markdownLibrary.renderer.rules.table_open = (
+      tokens,
+      index,
+      options,
+      environment,
+      renderer
+    ) =>
+      tableWrapperOpen +
+      renderToken(tokens, index, options, environment, renderer);
+    markdownLibrary.renderer.rules.table_close = (
+      tokens,
+      index,
+      options,
+      environment,
+      renderer
+    ) =>
+      renderToken(tokens, index, options, environment, renderer) +
+      `</div>${tableWrapperClose}`;
+
+    for (const cellType of ["th", "td"]) {
+      markdownLibrary.renderer.rules[`${cellType}_open`] = (
+        tokens,
+        index,
+        options,
+        environment,
+        renderer
+      ) =>
+        renderToken(tokens, index, options, environment, renderer) +
+        '<div class="table-cell">';
+      markdownLibrary.renderer.rules[`${cellType}_close`] = (
+        tokens,
+        index,
+        options,
+        environment,
+        renderer
+      ) =>
+        "</div>" +
+        renderToken(tokens, index, options, environment, renderer);
+    }
+  });
 
   const getArticleHeadings = (content, articleTitle = "") => {
     const headings = [];

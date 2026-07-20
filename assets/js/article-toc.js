@@ -4,6 +4,7 @@ const sidebar = document.querySelector(".article-sidebar");
 const sidebarToggle = document.querySelector(".sidebar-toggle");
 const sidebarBackdrop = document.querySelector(".sidebar-backdrop");
 const mobileSidebarQuery = window.matchMedia("(max-width: 860px)");
+const tableWrappers = [...document.querySelectorAll(".table-wrapper")];
 const sections = tocLinks
   .map((link) => {
     const id = link.getAttribute("href")?.slice(1);
@@ -216,3 +217,73 @@ window.addEventListener("scroll", requestActiveSectionUpdate, {
 });
 window.addEventListener("resize", requestActiveSectionUpdate);
 updateActiveSection();
+
+function updateTableScrollHints(wrapper) {
+  const scroller = wrapper.querySelector(".table-scroll");
+  const leftHint = wrapper.querySelector(".table-scroll-left");
+  const rightHint = wrapper.querySelector(".table-scroll-right");
+  if (!scroller || !leftHint || !rightHint) return;
+
+  const maximumScroll = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+  const edgeTolerance = 1;
+
+  leftHint.hidden =
+    maximumScroll <= edgeTolerance || scroller.scrollLeft <= edgeTolerance;
+  rightHint.hidden =
+    maximumScroll <= edgeTolerance ||
+    scroller.scrollLeft >= maximumScroll - edgeTolerance;
+}
+
+for (const wrapper of tableWrappers) {
+  const scroller = wrapper.querySelector(".table-scroll");
+  const leftHint = wrapper.querySelector(".table-scroll-left");
+  const rightHint = wrapper.querySelector(".table-scroll-right");
+  if (!scroller || !leftHint || !rightHint) continue;
+
+  for (const cell of wrapper.querySelectorAll(".table-cell")) {
+    const characterCount = [
+      ...cell.textContent.trim().replace(/\s+/g, " ")
+    ].length;
+    cell.classList.toggle("has-long-content", characterCount > 12);
+  }
+
+  const scrollTable = (direction) => {
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    scroller.scrollBy({
+      left: direction * Math.max(120, scroller.clientWidth * 0.75),
+      behavior: reducedMotion ? "auto" : "smooth"
+    });
+  };
+
+  leftHint.addEventListener("click", () => scrollTable(-1));
+  rightHint.addEventListener("click", () => scrollTable(1));
+  scroller.addEventListener(
+    "scroll",
+    () => updateTableScrollHints(wrapper),
+    { passive: true }
+  );
+  updateTableScrollHints(wrapper);
+}
+
+if (tableWrappers.length > 0) {
+  if ("ResizeObserver" in window) {
+    const tableResizeObserver = new ResizeObserver(() => {
+      for (const wrapper of tableWrappers) updateTableScrollHints(wrapper);
+    });
+    for (const wrapper of tableWrappers) {
+      tableResizeObserver.observe(wrapper);
+      const table = wrapper.querySelector("table");
+      if (table) tableResizeObserver.observe(table);
+    }
+  } else {
+    window.addEventListener("resize", () => {
+      for (const wrapper of tableWrappers) updateTableScrollHints(wrapper);
+    });
+  }
+
+  window.addEventListener("load", () => {
+    for (const wrapper of tableWrappers) updateTableScrollHints(wrapper);
+  });
+}

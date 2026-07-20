@@ -45,3 +45,10 @@ function takeRandomColor() {
 for (const target of accentTargets) {
   target.style.setProperty("--special-color", takeRandomColor());
 }
+
+for (const wrapper of document.querySelectorAll(".table-wrapper")) {
+  const tableColor = takeRandomColor();
+  for (const hint of wrapper.querySelectorAll(".table-scroll-hint")) {
+    hint.style.setProperty("--special-color", tableColor);
+  }
+}
