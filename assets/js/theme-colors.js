@@ -15,6 +15,7 @@ const oneMonokaiCodeColors = [
 const accentTargets = document.querySelectorAll([
   "a",
   ".hero > p:first-child",
+  ".about-heading > p",
   ".section-heading > div > p",
   ".post-card > p:first-child",
   ".sidebar-year-group summary",

@@ -34,9 +34,6 @@ export default function (eleventyConfig) {
   };
 
   eleventyConfig.addPassthroughCopy("assets");
-  eleventyConfig.addPassthroughCopy({
-    "assets/images/b.png": "favicon.png"
-  });
 
   eleventyConfig.on("eleventy.before", () => {
     const postsDirectory = "content/posts";

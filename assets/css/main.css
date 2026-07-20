@@ -150,6 +150,7 @@ nav a[aria-current="page"] {
 }
 
 .hero > p:first-child,
+.about-heading > p,
 .section-heading > div > p,
 .meta,
 .listing-header span,
@@ -162,6 +163,7 @@ nav a[aria-current="page"] {
 }
 
 .hero > p:first-child,
+.about-heading > p,
 .section-heading > div > p {
   margin-bottom: 1.4rem;
   color: var(--special-color);
@@ -175,6 +177,35 @@ nav a[aria-current="page"] {
 
 .compact-hero {
   padding-bottom: 2rem;
+}
+
+.about-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  column-gap: 2rem;
+  align-items: center;
+  margin-bottom: 1.8rem;
+}
+
+.about-heading > p {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.about-heading h1 {
+  grid-column: 1;
+  grid-row: 2;
+  margin-bottom: 0;
+}
+
+.about-title-image {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  width: clamp(8rem, 24vw, 11rem);
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 50%;
 }
 
 .listing {
@@ -198,6 +229,10 @@ nav a[aria-current="page"] {
 .section-heading > a {
   color: var(--muted);
   font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.section-heading h2 a {
   text-decoration: none;
 }
 
