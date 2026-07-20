@@ -48,6 +48,12 @@
   max-height: 100vh;
   padding-block: 2rem;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.article-sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar-title,
@@ -142,6 +148,7 @@
   font-size: 0.88rem;
   line-height: 1.45;
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .sidebar-posts a[aria-current="page"] {
@@ -159,6 +166,7 @@
   line-height: 1.45;
   text-decoration: none;
   transition: color 160ms ease;
+  overflow-wrap: anywhere;
 }
 
 .article-toc a[aria-current="location"] {
@@ -194,6 +202,7 @@
   max-width: 36em;
   margin-bottom: 1rem;
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 .post-tags {
@@ -206,6 +215,7 @@
   color: var(--muted);
   font-size: 0.82rem;
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .post-content {
@@ -260,6 +270,12 @@
 .post-content blockquote,
 .post-content pre {
   margin-bottom: 1.5rem;
+}
+
+.post-content p,
+.post-content li,
+.post-content blockquote {
+  overflow-wrap: anywhere;
 }
 
 .post-content img {

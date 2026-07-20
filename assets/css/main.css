@@ -90,6 +90,7 @@ h3 {
   color: var(--text-strong);
   font-weight: 400;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 h1 {
@@ -321,6 +322,7 @@ nav a[aria-current="page"] {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+  min-width: 0;
 }
 
 .post-card .meta,
@@ -342,6 +344,7 @@ nav a[aria-current="page"] {
 .post-card .post-summary {
   max-width: 38em;
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 .post-card > p:first-child {
@@ -366,6 +369,7 @@ nav a[aria-current="page"] {
 .post-card-tags a {
   color: var(--muted);
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .post-card-tags a:hover,
@@ -391,9 +395,15 @@ nav a[aria-current="page"] {
   gap: 1rem;
   align-items: baseline;
   justify-content: space-between;
+  min-width: 0;
   padding-block: 0.65rem;
   color: var(--muted);
   text-decoration: none;
+}
+
+.tag-list a span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .tag-list a span:last-child {
