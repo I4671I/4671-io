@@ -4,6 +4,7 @@ import { RenderPlugin } from "@11ty/eleventy";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(RenderPlugin);
+  eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
 
   const getArticleHeadings = (content) => {
     const headings = [];
