@@ -381,8 +381,9 @@ nav a[aria-current="page"] {
 }
 
 .tag-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 3rem;
 }
 
 .tag-list a {
@@ -524,6 +525,10 @@ nav a[aria-current="page"],
 
   nav {
     gap: 0.8rem;
+  }
+
+  .tag-list {
+    grid-template-columns: 1fr;
   }
 
   .hero {
