@@ -1,7 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
+import { RenderPlugin } from "@11ty/eleventy";
 
 export default function (eleventyConfig) {
+  eleventyConfig.addPlugin(RenderPlugin);
+
   const getArticleHeadings = (content) => {
     const headings = [];
     const headingPattern = /<h([2-4])([^>]*)>([\s\S]*?)<\/h\1>/gi;

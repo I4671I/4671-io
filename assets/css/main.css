@@ -183,8 +183,9 @@ nav a[aria-current="page"] {
 
 .about-title-image {
   position: absolute;
-  top: 2rem;
+  top: 50%;
   right: 0;
+  transform: translateY(-50%);
   width: clamp(8rem, 24vw, 11rem);
   height: auto;
   border-radius: 50%;
