@@ -6,17 +6,28 @@ nav: articles
 permalink: articles.html
 ---
 <main>
+  {% set posts = collections.posts %}
   <section class="hero" aria-labelledby="archive-title">
     <p>ARTICLES</p>
-    <h1 id="archive-title">文章</h1>
+    <div class="archive-title-row">
+      <h1 id="archive-title">文章</h1>
+      <span>共 {{ posts.length }} 篇</span>
+    </div>
   </section>
 
-  {% set posts = collections.posts %}
-  <section class="listing" aria-label="全部文章">
-    <header class="listing-header">
-      <h2>全部文章</h2>
-      <span>共 {{ posts.length }} 篇</span>
-    </header>
-    {% include "components/post-list.njk" %}
+  {% set yearGroups = posts | groupByYear %}
+  <section class="archive-years" aria-label="按年份分类的全部文章">
+    {% for group in yearGroups %}
+      <details class="archive-year-group" {% if loop.first %}open{% endif %}>
+        <summary>
+          <span>{{ group.year }}</span>
+          <span>{{ group.posts.length }} 篇</span>
+        </summary>
+        <div class="archive-year-posts">
+          {% set posts = group.posts %}
+          {% include "components/post-list.njk" %}
+        </div>
+      </details>
+    {% endfor %}
   </section>
 </main>

@@ -173,6 +173,23 @@ nav a[aria-current="page"] {
   color: var(--muted);
 }
 
+.archive-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.archive-title-row h1 {
+  margin-bottom: 0;
+}
+
+.archive-title-row span,
+.archive-year-group summary span:last-child {
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+}
+
 .compact-hero {
   padding-bottom: 2rem;
 }
@@ -206,6 +223,58 @@ nav a[aria-current="page"] {
 
 .listing {
   border-top: 1px solid var(--border);
+}
+
+.archive-years {
+  border-top: 1px solid var(--border);
+}
+
+.archive-year-group {
+  border-bottom: 1px solid var(--border);
+}
+
+.archive-year-group summary {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+  padding-block: 1.5rem;
+  color: var(--text-strong);
+  cursor: pointer;
+  list-style: none;
+}
+
+.archive-year-group summary::-webkit-details-marker {
+  display: none;
+}
+
+.archive-year-group summary::before {
+  color: var(--special-color);
+  font-size: 0.75rem;
+  content: "▶";
+  transition: transform 160ms ease;
+}
+
+.archive-year-group[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.archive-year-group summary span:first-child {
+  font-size: 1.45rem;
+  line-height: 1.35;
+}
+
+.archive-year-group summary span:last-child {
+  grid-column: 3;
+}
+
+.archive-year-group summary:hover span:first-child,
+.archive-year-group summary:focus-visible span:first-child {
+  color: var(--special-color);
+}
+
+.archive-year-posts {
+  padding-bottom: 0.5rem;
 }
 
 .listing-header,

@@ -18,6 +18,7 @@ const accentTargets = document.querySelectorAll([
   ".about-heading > p",
   ".section-heading > div > p",
   ".post-card > p:first-child",
+  ".archive-year-group summary",
   ".sidebar-year-group summary",
   ".post-content blockquote",
   ".sidebar-toggle"
