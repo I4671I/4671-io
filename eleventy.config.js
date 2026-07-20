@@ -83,7 +83,7 @@ export default function (eleventyConfig) {
         if (tag !== "post") tags.add(tag);
       }
     }
-    return [...tags].sort((a, b) => a.localeCompare(b, "zh-CN"));
+    return [...tags];
   });
 
   eleventyConfig.addFilter("htmlDateString", (date) => {
