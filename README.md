@@ -58,6 +58,6 @@ content/posts/2026/article-name.md
 → /posts/2026/article-name.html
 ```
 
-保存后，缺省的日期、文章布局、阅读时间、永久链接，以及首页最新文章、文章归档、文章页左侧导航和标签页面都会自动生成。
+保存后，缺省的日期、文章布局、阅读时间、永久链接，以及首页最新文章、文章归档、文章页左侧导航、标签总览和标签详情页面都会自动生成。
 
 全站公共样式位于 `assets/css/main.css`，文章正文与侧栏样式位于 `assets/css/post.css`。主要字体仍为 `Source Serif 4`，中文回退字体为 `LXGW Zhuque Fangsong`。

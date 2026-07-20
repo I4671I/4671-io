@@ -9,7 +9,7 @@ permalink: articles.html
   <section class="hero" aria-labelledby="archive-title">
     <p>ARTICLES</p>
     <h1 id="archive-title">文章</h1>
-    <p>按时间保存写下的文字，也可以通过标签找到相近的内容。</p>
+    <p>按时间保存写下的文字。</p>
   </section>
 
   {% set posts = collections.posts %}
@@ -20,19 +20,4 @@ permalink: articles.html
     </header>
     {% include "components/post-list.njk" %}
   </section>
-
-  {% set allTags = collections.tagList %}
-  {% if allTags.length %}
-    <section class="archive-tags" aria-labelledby="tags-title">
-      <h2 id="tags-title">标签</h2>
-      <div class="tag-list">
-        {% for tag in allTags %}
-          <a href="{{ tag | tagUrl }}">
-            <span>#{{ tag }}</span>
-            <span>共 {{ collections[tag].length }} 篇</span>
-          </a>
-        {% endfor %}
-      </div>
-    </section>
-  {% endif %}
 </main>
