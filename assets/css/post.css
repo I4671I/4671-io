@@ -72,20 +72,22 @@
   margin-top: 0;
 }
 
-.sidebar-heading {
-  margin: 0;
+.sidebar-toc-section {
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
 }
 
-.sidebar-year-group {
-  border-bottom: 1px solid var(--border);
+.sidebar-heading {
+  margin: 0;
 }
 
 .sidebar-year-group summary {
   display: flex;
   align-items: center;
-  padding-block: 2rem;
-  color: var(--special-color);
+  padding-block: 0;
+  color: var(--muted);
   font-size: 0.78rem;
+  line-height: 1.45;
   letter-spacing: 0.08em;
   cursor: pointer;
   list-style: none;
@@ -102,7 +104,7 @@
 .sidebar-year-group summary::before {
   content: "+";
   width: 1rem;
-  color: var(--muted);
+  color: inherit;
 }
 
 .sidebar-year-group[open] summary::before {
@@ -110,7 +112,7 @@
 }
 
 .sidebar-year-group[open] summary {
-  padding-bottom: 0.65rem;
+  margin-bottom: 0.65rem;
 }
 
 .sidebar-year-group summary span:first-child {
@@ -118,15 +120,21 @@
 }
 
 .sidebar-year-group summary span:last-child {
-  color: var(--muted);
+  color: inherit;
   font-size: 0.7rem;
   letter-spacing: 0.04em;
+}
+
+.sidebar-year-group summary:hover,
+.sidebar-year-group summary:focus-visible,
+.sidebar-year-group summary:active {
+  color: var(--special-color);
 }
 
 .sidebar-posts {
   display: grid;
   gap: 0.65rem;
-  padding: 0 0 2rem 1rem;
+  padding: 0 0 0 1rem;
 }
 
 .sidebar-posts a {

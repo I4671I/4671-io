@@ -177,6 +177,7 @@ nav a[aria-current="page"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1.8rem;
 }
 
 .archive-title-row h1 {
@@ -239,7 +240,7 @@ nav a[aria-current="page"] {
   gap: 0.85rem;
   align-items: center;
   padding-block: 1.5rem;
-  color: var(--text-strong);
+  color: var(--muted);
   cursor: pointer;
   list-style: none;
 }
@@ -249,14 +250,15 @@ nav a[aria-current="page"] {
 }
 
 .archive-year-group summary::before {
-  color: var(--special-color);
-  font-size: 0.75rem;
-  content: "▶";
-  transition: transform 160ms ease;
+  width: 1rem;
+  color: inherit;
+  font-size: 1.45rem;
+  line-height: 1.35;
+  content: "+";
 }
 
 .archive-year-group[open] summary::before {
-  transform: rotate(90deg);
+  content: "−";
 }
 
 .archive-year-group summary span:first-child {
@@ -266,10 +268,12 @@ nav a[aria-current="page"] {
 
 .archive-year-group summary span:last-child {
   grid-column: 3;
+  color: inherit;
 }
 
-.archive-year-group summary:hover span:first-child,
-.archive-year-group summary:focus-visible span:first-child {
+.archive-year-group summary:hover,
+.archive-year-group summary:focus-visible,
+.archive-year-group summary:active {
   color: var(--special-color);
 }
 
