@@ -4,7 +4,7 @@ postLayout: true
 bodyClass: post-page
 ---
 <div class="reading-layout">
-  {% set headings = content | articleHeadings %}
+  {% set headings = content | articleHeadings(title) %}
   <button
     class="sidebar-toggle"
     type="button"
@@ -26,7 +26,7 @@ bodyClass: post-page
           <time datetime="{{ date | htmlDateString }}">{{ date | displayDate }}</time>
           <span>·</span><span>阅读约 {{ readingTime or (content | readingTime) }} 分钟</span>
         </p>
-        <h1>{{ title }}</h1>
+        <h1 id="article-title">{{ title }}</h1>
         {% if description %}<p>{{ description }}</p>{% endif %}
         {% if tags.length %}
           <div class="post-tags">

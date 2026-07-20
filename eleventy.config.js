@@ -6,9 +6,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
 
-  const getArticleHeadings = (content) => {
+  const getArticleHeadings = (content, articleTitle = "") => {
     const headings = [];
-    const headingPattern = /<h([2-4])([^>]*)>([\s\S]*?)<\/h\1>/gi;
+    const headingPattern = /<h([1-4])([^>]*)>([\s\S]*?)<\/h\1>/gi;
     let match;
 
     while ((match = headingPattern.exec(String(content || "")))) {
@@ -26,6 +26,14 @@ export default function (eleventyConfig) {
         level: Number(match[1]),
         id: existingId ? existingId[2] : `section-${headings.length + 1}`,
         text
+      });
+    }
+
+    if (articleTitle) {
+      headings.unshift({
+        level: 1,
+        id: "article-title",
+        text: String(articleTitle)
       });
     }
 
@@ -150,7 +158,7 @@ export default function (eleventyConfig) {
     let headingIndex = 0;
 
     return String(content || "").replace(
-      /<h([2-4])([^>]*)>([\s\S]*?)<\/h\1>/gi,
+      /<h([1-4])([^>]*)>([\s\S]*?)<\/h\1>/gi,
       (heading, level, attributes, innerHtml) => {
         const articleHeading = headings[headingIndex++];
         if (/\sid=(["']).*?\1/i.test(attributes)) return heading;
