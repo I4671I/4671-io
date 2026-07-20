@@ -150,7 +150,6 @@ nav a[aria-current="page"] {
 }
 
 .hero > p:first-child,
-.about-heading > p,
 .section-heading > div > p,
 .meta,
 .listing-header span,
@@ -163,7 +162,6 @@ nav a[aria-current="page"] {
 }
 
 .hero > p:first-child,
-.about-heading > p,
 .section-heading > div > p {
   margin-bottom: 1.4rem;
   color: var(--special-color);
@@ -179,23 +177,30 @@ nav a[aria-current="page"] {
   padding-bottom: 2rem;
 }
 
-.about-heading {
+.about-hero {
   position: relative;
-  min-height: clamp(8rem, 24vw, 11rem);
-  margin-bottom: 1.8rem;
-}
-
-.about-heading h1 {
-  margin-bottom: 0;
 }
 
 .about-title-image {
   position: absolute;
-  top: 0;
+  top: 2rem;
   right: 0;
   width: clamp(8rem, 24vw, 11rem);
   height: auto;
   border-radius: 50%;
+}
+
+.about-content {
+  padding-block: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.about-content > * {
+  max-width: 34em;
+}
+
+.about-content > :last-child {
+  margin-bottom: 0;
 }
 
 .listing {
