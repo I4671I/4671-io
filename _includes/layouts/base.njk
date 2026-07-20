@@ -3,8 +3,24 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#111318">
     <meta name="description" content="{{ description or site.description }}">
     <title>{% if titleOnly %}{{ title }}{% else %}{% if title %}{{ title }}｜{% endif %}{{ site.name }}{% endif %}</title>
+    <style>
+      html {
+        color-scheme: dark;
+        color: #ddd8cd;
+        background: #111318;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        color: #ddd8cd;
+        background: #111318;
+      }
+    </style>
     <link rel="preload" href="{{ '/assets/fonts/source-serif-4-regular.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ '/assets/fonts/lxgw-zhuque-fangsong-regular.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>
     <link rel="icon" type="image/png" sizes="64x64" href="{{ '/favicon.png?v=2' | sitePath }}">
