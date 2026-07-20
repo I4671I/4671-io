@@ -14,6 +14,53 @@ const sections = tocLinks
 
 let activeLink = null;
 let updateRequested = false;
+let sidebarToggleDrag = null;
+let suppressSidebarToggleClick = false;
+
+function getToggleBounds() {
+  const toggleHeight = sidebarToggle?.offsetHeight || 56;
+  const viewportHeight = window.visualViewport?.height || window.innerHeight;
+  const edgeSpace = 12;
+
+  return {
+    min: edgeSpace,
+    max: Math.max(edgeSpace, viewportHeight - toggleHeight - edgeSpace)
+  };
+}
+
+function setTogglePosition(top, { persist = false } = {}) {
+  if (!sidebarToggle) return;
+
+  const bounds = getToggleBounds();
+  const clampedTop = Math.min(bounds.max, Math.max(bounds.min, top));
+  sidebarToggle.style.setProperty("--sidebar-toggle-top", `${clampedTop}px`);
+
+  if (persist) {
+    try {
+      localStorage.setItem("article-sidebar-toggle-top", String(clampedTop));
+    } catch {
+      // The control still works when storage is unavailable.
+    }
+  }
+}
+
+function initializeTogglePosition() {
+  if (!sidebarToggle || !mobileSidebarQuery.matches) return;
+
+  let savedTop = Number.NaN;
+  try {
+    savedTop = Number.parseFloat(
+      localStorage.getItem("article-sidebar-toggle-top")
+    );
+  } catch {
+    // Use the default position when storage is unavailable.
+  }
+
+  const defaultTop =
+    (window.visualViewport?.height || window.innerHeight) / 2 -
+    sidebarToggle.offsetHeight / 2;
+  setTogglePosition(Number.isFinite(savedTop) ? savedTop : defaultTop);
+}
 
 function setSidebarOpen(open, { returnFocus = false } = {}) {
   if (!readingLayout || !sidebarToggle) return;
@@ -36,7 +83,61 @@ function setSidebarOpen(open, { returnFocus = false } = {}) {
   if (!open && returnFocus) sidebarToggle.focus();
 }
 
-sidebarToggle?.addEventListener("click", () => {
+sidebarToggle?.addEventListener("pointerdown", (event) => {
+  if (!mobileSidebarQuery.matches || event.button > 0) return;
+
+  sidebarToggleDrag = {
+    pointerId: event.pointerId,
+    startY: event.clientY,
+    startTop: sidebarToggle.getBoundingClientRect().top,
+    moved: false
+  };
+  sidebarToggle.setPointerCapture(event.pointerId);
+});
+
+sidebarToggle?.addEventListener("pointermove", (event) => {
+  if (!sidebarToggleDrag || event.pointerId !== sidebarToggleDrag.pointerId) {
+    return;
+  }
+
+  const deltaY = event.clientY - sidebarToggleDrag.startY;
+  if (Math.abs(deltaY) > 4) {
+    sidebarToggleDrag.moved = true;
+    sidebarToggle.classList.add("is-dragging");
+  }
+
+  if (sidebarToggleDrag.moved) {
+    event.preventDefault();
+    setTogglePosition(sidebarToggleDrag.startTop + deltaY);
+  }
+});
+
+function finishToggleDrag(event) {
+  if (!sidebarToggleDrag || event.pointerId !== sidebarToggleDrag.pointerId) {
+    return;
+  }
+
+  if (sidebarToggleDrag.moved) {
+    suppressSidebarToggleClick = event.type === "pointerup";
+    setTogglePosition(sidebarToggle.getBoundingClientRect().top, {
+      persist: true
+    });
+  }
+
+  sidebarToggle.classList.remove("is-dragging");
+  sidebarToggleDrag = null;
+}
+
+sidebarToggle?.addEventListener("pointerup", finishToggleDrag);
+sidebarToggle?.addEventListener("pointercancel", finishToggleDrag);
+
+sidebarToggle?.addEventListener("click", (event) => {
+  if (suppressSidebarToggleClick) {
+    event.preventDefault();
+    suppressSidebarToggleClick = false;
+    return;
+  }
+
   const isOpen = sidebarToggle.getAttribute("aria-expanded") === "true";
   setSidebarOpen(!isOpen);
 });
@@ -53,6 +154,7 @@ document.addEventListener("keydown", (event) => {
 
 mobileSidebarQuery.addEventListener("change", () => setSidebarOpen(false));
 setSidebarOpen(false);
+initializeTogglePosition();
 
 function getActivationLine() {
   return Math.min(160, window.innerHeight * 0.25);

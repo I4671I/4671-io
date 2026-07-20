@@ -18,7 +18,8 @@ const accentTargets = document.querySelectorAll([
   ".section-heading > div > p",
   ".post-card > p:first-child",
   ".sidebar-year-group summary",
-  ".post-content blockquote"
+  ".post-content blockquote",
+  ".sidebar-toggle"
 ].join(","));
 
 let colorBag = [];
