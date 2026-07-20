@@ -1,13 +1,21 @@
 {% for post in posts %}
   <article class="post-card">
     <p aria-hidden="true">{{ loop.index | string | padStart(2, "0") }}</p>
-    <div>
+    <div class="post-card-body">
       <p class="meta">
         <time datetime="{{ post.date | htmlDateString }}">{{ post.date | displayDate }}</time>
         <span>·</span><span>阅读约 {{ post.data.readingTime or (post.templateContent | readingTime) }} 分钟</span>
       </p>
       <h3><a href="{{ post.url | sitePath }}">{{ post.data.title }}</a></h3>
-      {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}
+      {% if post.data.description %}<p class="post-summary">{{ post.data.description }}</p>{% endif %}
+      {% set postTags = post.data.tags or [] %}
+      {% if postTags.length %}
+        <div class="post-card-tags" aria-label="文章标签">
+          {% for tag in postTags %}
+            {% if tag != "post" %}<a href="{{ tag | tagUrl }}">#{{ tag }}</a>{% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </article>
 {% endfor %}
