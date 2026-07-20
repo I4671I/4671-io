@@ -369,13 +369,8 @@
 }
 
 .table-cell {
-  max-inline-size: 34ch;
   white-space: normal;
   overflow-wrap: anywhere;
-}
-
-.table-cell.has-long-content {
-  min-inline-size: min(8ch, 20vw);
 }
 
 .post-content th {

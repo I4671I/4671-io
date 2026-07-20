@@ -240,13 +240,6 @@ for (const wrapper of tableWrappers) {
   const rightHint = wrapper.querySelector(".table-scroll-right");
   if (!scroller || !leftHint || !rightHint) continue;
 
-  for (const cell of wrapper.querySelectorAll(".table-cell")) {
-    const characterCount = [
-      ...cell.textContent.trim().replace(/\s+/g, " ")
-    ].length;
-    cell.classList.toggle("has-long-content", characterCount > 12);
-  }
-
   const scrollTable = (direction) => {
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
