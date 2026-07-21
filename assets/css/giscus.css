@@ -6,7 +6,8 @@
     format("woff2");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  /* Keep fallback glyphs hidden while the iframe's webfont is loading. */
+  font-display: block;
 }
 
 @font-face {
@@ -15,7 +16,8 @@
     format("woff2");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  /* Avoid a visible SimSun-to-Zhuque Fangsong swap on first render. */
+  font-display: block;
 }
 
 html,
