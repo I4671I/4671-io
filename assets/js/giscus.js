@@ -71,7 +71,9 @@ main .gsc-timeline > .gsc-comment:not(:has(~ .gsc-comment)) {
       throw new Error(`Unable to load giscus theme: ${themeResponse.status}`);
     }
 
-    themeCss = `${await themeResponse.text()}${createAccentRules()}`;
+    const baseThemeCss = await themeResponse.text();
+    await preloadThemeFonts(baseThemeCss);
+    themeCss = `${baseThemeCss}${createAccentRules()}`;
     const script = document.createElement("script");
 
     script.src = "https://giscus.app/client.js";
@@ -91,6 +93,23 @@ main .gsc-timeline > .gsc-comment:not(:has(~ .gsc-comment)) {
     script.async = true;
 
     container.append(script);
+  }
+
+  async function preloadThemeFonts(css) {
+    if (typeof FontFace !== "function") return;
+
+    const fontUrls = [...css.matchAll(/src:\s*url\("([^"]+)"\)/g)]
+      .map((match) => match[1]);
+    const fonts = fontUrls.map(
+      (url, index) => new FontFace(
+        `Giscus Theme Preload ${index + 1}`,
+        `url("${url}") format("woff2")`
+      )
+    );
+
+    await Promise.all(
+      fonts.map((font) => font.load().catch(() => undefined))
+    );
   }
 
   loadGiscus().catch((error) => {
