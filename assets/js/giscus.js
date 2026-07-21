@@ -66,7 +66,7 @@ main .gsc-timeline > .gsc-comment:not(:has(~ .gsc-comment)) {
   };
 
   async function loadGiscus() {
-    const themeResponse = await fetch("/assets/css/giscus.css");
+    const themeResponse = await fetch(container.dataset.themeUrl);
     if (!themeResponse.ok) {
       throw new Error(`Unable to load giscus theme: ${themeResponse.status}`);
     }

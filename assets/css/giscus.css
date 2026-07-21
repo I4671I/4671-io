@@ -42,10 +42,18 @@ main {
   --color-btn-hover-bg: #22252d;
   --color-btn-active-bg: #292c35;
   --color-btn-selected-bg: #292c35;
-  --color-accent-fg: #61afef;
-  --color-accent-emphasis: #4d8fc5;
-  --color-accent-muted: rgb(97 175 239 / 40%);
-  --color-accent-subtle: rgb(97 175 239 / 10%);
+  --color-accent-fg: var(--giscus-link-color);
+  --color-accent-emphasis: var(--giscus-link-color);
+  --color-accent-muted: color-mix(
+    in srgb,
+    var(--giscus-link-color) 40%,
+    transparent
+  );
+  --color-accent-subtle: color-mix(
+    in srgb,
+    var(--giscus-link-color) 10%,
+    transparent
+  );
   color-scheme: dark;
   font-family: var(--font-family-default) !important;
 }
