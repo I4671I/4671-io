@@ -162,6 +162,7 @@ body {
 
 a {
   color: inherit;
+  -webkit-tap-highlight-color: transparent;
   text-decoration-color: var(--special-color);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
