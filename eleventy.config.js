@@ -146,6 +146,10 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy({
+    "assets/images/favicon.ico": "favicon.ico",
+    "assets/images/apple-touch-icon.png": "apple-touch-icon.png"
+  });
+  eleventyConfig.addPassthroughCopy({
     "node_modules/katex/dist/katex.min.css":
       "assets/vendor/katex/katex.min.css",
     "node_modules/katex/dist/fonts": "assets/vendor/katex/fonts"

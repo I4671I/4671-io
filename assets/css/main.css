@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Source Serif 4";
-  src: url("../fonts/source-serif-4-regular.6b053e98f083.woff2")
+  src: url("../fonts/source-serif-4-regular.woff2")
     format("woff2");
   font-weight: 400;
   font-style: normal;
@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: "LXGW Zhuque Fangsong";
-  src: url("../fonts/lxgw-zhuque-fangsong-regular.c9868022314b.woff2")
+  src: url("../fonts/lxgw-zhuque-fangsong-regular.woff2")
     format("woff2");
   font-weight: 400;
   font-style: normal;

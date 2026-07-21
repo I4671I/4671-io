@@ -28,13 +28,14 @@
         background: #111318;
       }
     </style>
-    <link rel="preload" href="{{ '/assets/fonts/source-serif-4-regular.6b053e98f083.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ '/assets/fonts/lxgw-zhuque-fangsong-regular.c9868022314b.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>
-    {% if postLayout %}<link rel="preload" href="{{ '/assets/fonts/consolas-regular.ca23a72bc345.ttf' | sitePath }}" as="font" type="font/ttf" crossorigin>{% endif %}
-    {% if postLayout %}<link rel="preload" href="{{ '/assets/fonts/simsun-regular.d865ac703c40.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>{% endif %}
+    <link rel="preload" href="{{ '/assets/fonts/source-serif-4-regular.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ '/assets/fonts/lxgw-zhuque-fangsong-regular.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>
+    {% if postLayout %}<link rel="preload" href="{{ '/assets/fonts/consolas-regular.ttf' | sitePath }}" as="font" type="font/ttf" crossorigin>{% endif %}
+    {% if postLayout %}<link rel="preload" href="{{ '/assets/fonts/simsun-regular.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>{% endif %}
     <link rel="icon" type="image/png" sizes="64x64" href="{{ '/assets/images/bicon.png' | sitePath }}">
-    <link rel="shortcut icon" type="image/png" href="{{ '/assets/images/bicon.png' | sitePath }}">
-    <link rel="apple-touch-icon" href="{{ '/assets/images/bicon.png' | sitePath }}">
+    <link rel="icon" type="image/x-icon" sizes="64x64" href="{{ '/assets/images/favicon.ico' | sitePath }}">
+    <link rel="shortcut icon" href="{{ '/assets/images/favicon.ico' | sitePath }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | sitePath }}">
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | assetPath }}">
     {% if postLayout %}<link rel="stylesheet" href="{{ '/assets/vendor/katex/katex.min.css' | sitePath }}">{% endif %}
     {% if postLayout %}<link rel="stylesheet" href="{{ '/assets/css/post.css' | assetPath }}">{% endif %}
