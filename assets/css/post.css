@@ -1,8 +1,7 @@
 @font-face {
   font-family: "Consolas Web";
-  src:
-    local("Consolas"),
-    url("../fonts/consolas-regular.ttf") format("truetype");
+  src: url("../fonts/consolas-regular.ca23a72bc345.ttf")
+    format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: block;
@@ -10,10 +9,8 @@
 
 @font-face {
   font-family: "SimSun Web";
-  src:
-    local("SimSun"),
-    local("宋体"),
-    url("../fonts/simsun-regular.woff2") format("woff2");
+  src: url("../fonts/simsun-regular.d865ac703c40.woff2")
+    format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: block;
