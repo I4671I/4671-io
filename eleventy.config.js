@@ -7,6 +7,7 @@ import texmath from "markdown-it-texmath";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(RenderPlugin);
+  eleventyConfig.ignores.add("content/about.md");
   eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
   eleventyConfig.addShortcode("accentPalette", () => {
     const colors = [

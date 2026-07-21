@@ -7,11 +7,18 @@
     <meta name="theme-color" content="#111318">
     <meta name="description" content="{{ description or site.description }}">
     <title>{% if titleOnly %}{{ title }}{% else %}{% if title %}{{ title }}｜{% endif %}{{ site.name }}{% endif %}</title>
+    <script>
+      document.documentElement.classList.add("fonts-loading");
+    </script>
     <style>
       html {
         color-scheme: dark;
         color: #ddd8cd;
         background: #111318;
+      }
+
+      html.fonts-loading body {
+        visibility: hidden;
       }
 
       body {
@@ -23,6 +30,8 @@
     </style>
     <link rel="preload" href="{{ '/assets/fonts/source-serif-4-regular.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ '/assets/fonts/lxgw-zhuque-fangsong-regular.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>
+    {% if postLayout %}<link rel="preload" href="{{ '/assets/fonts/consolas-regular.ttf' | sitePath }}" as="font" type="font/ttf" crossorigin>{% endif %}
+    {% if postLayout %}<link rel="preload" href="{{ '/assets/fonts/simsun-regular.woff2' | sitePath }}" as="font" type="font/woff2" crossorigin>{% endif %}
     <link rel="icon" type="image/png" sizes="64x64" href="{{ '/assets/images/bicon.png' | sitePath }}">
     <link rel="shortcut icon" type="image/png" href="{{ '/assets/images/bicon.png' | sitePath }}">
     <link rel="apple-touch-icon" href="{{ '/assets/images/bicon.png' | sitePath }}">
@@ -31,6 +40,37 @@
     {% if postLayout %}<link rel="stylesheet" href="{{ '/assets/css/post.css' | assetPath }}">{% endif %}
     <script src="{{ '/assets/js/theme-colors.js' | assetPath }}" defer></script>
     {% if postLayout %}<script src="{{ '/assets/js/article-toc.js' | assetPath }}" defer></script>{% endif %}
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const reveal = () => root.classList.remove("fonts-loading");
+
+        if (!document.fonts || typeof document.fonts.load !== "function") {
+          reveal();
+          return;
+        }
+
+        const requiredFonts = [
+          ['1em "Source Serif 4"', "A"],
+          ['1em "LXGW Zhuque Fangsong"', "汉"]{% if postLayout %},
+          ['1em "Consolas Web"', "A"],
+          ['1em "SimSun Web"', "汉"]{% endif %}
+        ];
+
+        const domReady = document.readyState === "loading"
+          ? new Promise((resolve) => {
+              document.addEventListener("DOMContentLoaded", resolve, { once: true });
+            })
+          : Promise.resolve();
+        const fontsReady = Promise.all(
+          requiredFonts.map(([font, sample]) => document.fonts.load(font, sample))
+        )
+          .then(() => document.fonts.ready)
+          .catch(() => undefined);
+
+        Promise.all([domReady, fontsReady]).then(reveal);
+      })();
+    </script>
   </head>
   <body class="{{ bodyClass or '' }}">
     {% if not hideHeader %}
