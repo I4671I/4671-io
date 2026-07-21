@@ -23,7 +23,7 @@
   --muted: #918e86;
   /*
    * One Monokai syntax palette. `theme-colors.js` picks from these for
-   * each accent-bearing piece of text. Red is the no-JavaScript fallback.
+   * each accent-bearing piece of text. CSS below provides the fallback.
    */
   --syntax-comment: #676f7d;
   --syntax-yellow: #e5c07b;
@@ -35,10 +35,108 @@
   --syntax-green: #98c379;
   --syntax-orange: #d19a66;
   --syntax-diff: #75715e;
-  --special-color: var(--syntax-red);
+  --accent-1: var(--syntax-yellow);
+  --accent-2: var(--syntax-purple);
+  --accent-3: var(--syntax-cyan);
+  --accent-4: var(--syntax-red);
+  --accent-5: var(--syntax-blue);
+  --accent-6: var(--syntax-green);
+  --accent-7: var(--syntax-orange);
+  /* This also serves as a no-JavaScript fallback. */
+  --special-color: var(--accent-5);
   --border: #33343a;
   --content-width: 760px;
   --wide-width: 1120px;
+}
+
+/*
+ * Keep the site multicolored when an external script is blocked or stale.
+ * theme-colors.js overrides these values with a shuffled palette when it runs.
+ */
+nav a:nth-child(7n + 1),
+.post-card:nth-child(7n + 1),
+.tag-list a:nth-child(7n + 1),
+.archive-year-group:nth-child(7n + 1),
+.sidebar-year-group:nth-child(7n + 1),
+.article-toc a:nth-child(7n + 1),
+.post-tags a:nth-child(7n + 1),
+.footer-socials a:nth-child(7n + 1) {
+  --special-color: var(--accent-1);
+}
+
+nav a:nth-child(7n + 2),
+.post-card:nth-child(7n + 2),
+.tag-list a:nth-child(7n + 2),
+.archive-year-group:nth-child(7n + 2),
+.sidebar-year-group:nth-child(7n + 2),
+.article-toc a:nth-child(7n + 2),
+.post-tags a:nth-child(7n + 2),
+.footer-socials a:nth-child(7n + 2) {
+  --special-color: var(--accent-2);
+}
+
+nav a:nth-child(7n + 3),
+.post-card:nth-child(7n + 3),
+.tag-list a:nth-child(7n + 3),
+.archive-year-group:nth-child(7n + 3),
+.sidebar-year-group:nth-child(7n + 3),
+.article-toc a:nth-child(7n + 3),
+.post-tags a:nth-child(7n + 3) {
+  --special-color: var(--accent-3);
+}
+
+nav a:nth-child(7n + 4),
+.post-card:nth-child(7n + 4),
+.tag-list a:nth-child(7n + 4),
+.archive-year-group:nth-child(7n + 4),
+.sidebar-year-group:nth-child(7n + 4),
+.article-toc a:nth-child(7n + 4),
+.post-tags a:nth-child(7n + 4) {
+  --special-color: var(--accent-4);
+}
+
+nav a:nth-child(7n + 5),
+.post-card:nth-child(7n + 5),
+.tag-list a:nth-child(7n + 5),
+.archive-year-group:nth-child(7n + 5),
+.sidebar-year-group:nth-child(7n + 5),
+.article-toc a:nth-child(7n + 5),
+.post-tags a:nth-child(7n + 5) {
+  --special-color: var(--accent-5);
+}
+
+nav a:nth-child(7n + 6),
+.post-card:nth-child(7n + 6),
+.tag-list a:nth-child(7n + 6),
+.archive-year-group:nth-child(7n + 6),
+.sidebar-year-group:nth-child(7n + 6),
+.article-toc a:nth-child(7n + 6),
+.post-tags a:nth-child(7n + 6) {
+  --special-color: var(--accent-6);
+}
+
+nav a:nth-child(7n),
+.post-card:nth-child(7n),
+.tag-list a:nth-child(7n),
+.archive-year-group:nth-child(7n),
+.sidebar-year-group:nth-child(7n),
+.article-toc a:nth-child(7n),
+.post-tags a:nth-child(7n) {
+  --special-color: var(--accent-7);
+}
+
+.hero > p:first-child {
+  --special-color: var(--accent-1);
+}
+
+.section-heading > a,
+.scroll-cue {
+  --special-color: var(--accent-3);
+}
+
+.home-about a,
+.about-content a {
+  --special-color: var(--accent-6);
 }
 
 * {

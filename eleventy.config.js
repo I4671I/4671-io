@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import { RenderPlugin } from "@11ty/eleventy";
 import katex from "katex";
 import texmath from "markdown-it-texmath";
@@ -7,6 +8,29 @@ import texmath from "markdown-it-texmath";
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
+  eleventyConfig.addShortcode("accentPalette", () => {
+    const colors = [
+      "#e5c07b",
+      "#c678dd",
+      "#56b6c2",
+      "#e06c75",
+      "#61afef",
+      "#98c379",
+      "#d19a66"
+    ];
+
+    for (let index = colors.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [colors[index], colors[randomIndex]] = [
+        colors[randomIndex],
+        colors[index]
+      ];
+    }
+
+    return colors
+      .map((color, index) => `--accent-${index + 1}: ${color}`)
+      .join("; ");
+  });
   eleventyConfig.amendLibrary("md", (markdownLibrary) => {
     markdownLibrary.use(texmath, {
       engine: katex,
@@ -101,6 +125,22 @@ export default function (eleventyConfig) {
   const sitePath = (value) => {
     const path = String(value || "/");
     return path.startsWith("/") ? path : `/${path}`;
+  };
+
+  const assetPath = (value) => {
+    const url = sitePath(value);
+    const sourcePath = url.split("?", 1)[0].replace(/^\/+/, "");
+
+    try {
+      const version = crypto
+        .createHash("sha256")
+        .update(fs.readFileSync(sourcePath))
+        .digest("hex")
+        .slice(0, 12);
+      return `${url}${url.includes("?") ? "&" : "?"}v=${version}`;
+    } catch {
+      return url;
+    }
   };
 
   eleventyConfig.addPassthroughCopy("assets");
@@ -213,6 +253,7 @@ export default function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter("sitePath", sitePath);
+  eleventyConfig.addFilter("assetPath", assetPath);
 
   eleventyConfig.addFilter("articleHeadings", getArticleHeadings);
 

@@ -1,16 +1,28 @@
 const rootStyles = getComputedStyle(document.documentElement);
-const oneMonokaiCodeColors = [
-//   "--syntax-comment",
+const colorProperties = [
   "--syntax-yellow",
   "--syntax-purple",
-//   "--syntax-default",
   "--syntax-cyan",
   "--syntax-red",
   "--syntax-blue",
   "--syntax-green",
-  "--syntax-orange",
-//   "--syntax-diff"
-].map((property) => rootStyles.getPropertyValue(property).trim());
+  "--syntax-orange"
+];
+const fallbackColors = [
+  "#e5c07b",
+  "#c678dd",
+  "#56b6c2",
+  "#e06c75",
+  "#61afef",
+  "#98c379",
+  "#d19a66"
+];
+const resolvedColors = colorProperties.map((property) =>
+  rootStyles.getPropertyValue(property).trim()
+);
+const oneMonokaiCodeColors = resolvedColors.every(Boolean)
+  ? resolvedColors
+  : fallbackColors;
 
 const accentTargets = document.querySelectorAll([
   "a",
