@@ -35,10 +35,7 @@ npm run build
 
 使用的字体：
 
-中文：`LXGW Zhuque Fangsong`、`宋体`（仅限代码块）
+中文：[朱雀仿宋](https://github.com/TrionesType/zhuque)、`宋体`（代码块）
+英文：[Source Serif 4](https://github.com/adobe-fonts/source-serif)、`Consolas`（代码块）
 
-英文：`Source Serif 4`、`Consolas`（仅限代码块）
-
-[Source Serif](https://github.com/adobe-fonts/source-serif)
-
-[朱雀仿宋](https://github.com/TrionesType/zhuque)
+参考主题配色：`One Monokai`
