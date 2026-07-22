@@ -1,12 +1,31 @@
 import fs from "node:fs";
 import crypto from "node:crypto";
 import { RenderPlugin } from "@11ty/eleventy";
+import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import katex from "katex";
 import texmath from "markdown-it-texmath";
 import { addMissingPostDates } from "./scripts/add-post-dates.js";
+import site from "./_data/site.json" with { type: "json" };
 
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(RenderPlugin);
+  eleventyConfig.addPlugin(feedPlugin, {
+    type: "atom",
+    outputPath: "/feed.xml",
+    collection: {
+      name: "feedPosts",
+      limit: 20
+    },
+    metadata: {
+      language: "zh-CN",
+      title: site.name,
+      subtitle: site.description,
+      base: site.url,
+      author: {
+        name: site.author
+      }
+    }
+  });
   eleventyConfig.ignores.add("content/about.md");
   eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
   eleventyConfig.addShortcode("accentPalette", () => {
@@ -163,6 +182,10 @@ export default function (eleventyConfig) {
       .sort((a, b) => b.date - a.date);
 
   eleventyConfig.addCollection("posts", getPosts);
+  // The feed plugin reverses this collection before rendering.
+  eleventyConfig.addCollection("feedPosts", (collectionApi) =>
+    [...getPosts(collectionApi)].reverse()
+  );
 
   eleventyConfig.addCollection("tagList", (collectionApi) => {
     const tags = new Set();
