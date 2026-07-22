@@ -2,7 +2,7 @@
   <a class="site-name" href="{{ '/' | sitePath }}">{{ site.name }}</a>
   <nav aria-label="主导航">
     <a href="{{ '/' | sitePath }}" {% if nav == "home" %}aria-current="page"{% endif %}>首页</a>
-    <a href="{{ '/articles.html' | sitePath }}" {% if nav == "articles" %}aria-current="page"{% endif %}>文章</a>
+    <a href="{{ '/posts.html' | sitePath }}" {% if nav == "posts" %}aria-current="page"{% endif %}>文章</a>
     <a href="{{ '/tags.html' | sitePath }}" {% if nav == "tags" %}aria-current="page"{% endif %}>标签</a>
     <a href="{{ '/about.html' | sitePath }}" {% if nav == "about" %}aria-current="page"{% endif %}>关于</a>
   </nav>
