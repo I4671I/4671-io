@@ -6,6 +6,7 @@
     <meta name="color-scheme" content="dark">
     <meta name="theme-color" content="#111318">
     <meta name="description" content="{{ description or site.description }}">
+    <link rel="alternate" type="application/atom+xml" title="{{ site.name }} RSS" href="{{ '/feed.xml' | sitePath }}">
     <title>{% if titleOnly %}{{ title }}{% else %}{% if title %}{{ title }}｜{% endif %}{{ site.name }}{% endif %}</title>
     <script>
       document.documentElement.classList.add("fonts-loading");

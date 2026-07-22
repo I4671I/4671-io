@@ -1,6 +1,15 @@
 <footer class="site-footer">
   <p>© {{ site.year }}-{{ currentYear }} {{ site.author }}</p>
-  <div class="footer-socials" aria-label="社交媒体">
+  <div class="footer-socials" aria-label="订阅与社交媒体">
+    <a
+      href="{{ '/feed.xml' | sitePath }}"
+      aria-label="RSS 订阅"
+      title="RSS 订阅"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 16.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5A11.5 11.5 0 0 1 14.5 21H11a8 8 0 0 0-8-8V9.5ZM3 3a18 18 0 0 1 18 18h-3.5A14.5 14.5 0 0 0 3 6.5V3Z"/>
+      </svg>
+    </a>
     <a
       href="https://github.com/I4671I"
       target="_blank"
