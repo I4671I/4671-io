@@ -34,7 +34,11 @@ npm run build
 - [giscus](https://github.com/giscus/giscus)：基于 GitHub Discussions 的评论系统
 
 使用的字体：
+
 中文：`LXGW Zhuque Fangsong`、`宋体`（仅限代码块）
+
 英文：`Source Serif 4`、`Consolas`（仅限代码块）
-- [Source Serif](https://github.com/adobe-fonts/source-serif)：西文字体
-- [朱雀仿宋](https://github.com/TrionesType/zhuque)：中文字体
+
+[Source Serif](https://github.com/adobe-fonts/source-serif)
+
+[朱雀仿宋](https://github.com/TrionesType/zhuque)
