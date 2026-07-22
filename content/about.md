@@ -1,8 +1,1 @@
-在这里写下你想说的话。
-
-可以直接使用 Markdown，例如：
-
-## 小标题
-
-- 列表项目
-- 另一个列表项目
+I am an undergraduate student majoring in Computer Science at Tsinghua University. My current research focuses on embodied intelligence.
