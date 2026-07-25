@@ -1,5 +1,6 @@
 ---
 title: 我在互联网上圈了一块地
+date: 2026-07-25
 description: 第一篇文章
 tags:
   - 日常水
