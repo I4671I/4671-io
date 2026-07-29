@@ -273,12 +273,15 @@
   font-size: 1.2rem;
 }
 
-.post-content p,
 .post-content ul,
 .post-content ol,
 .post-content blockquote,
 .post-content pre {
   margin-bottom: 1.5rem;
+}
+
+.post-content p {
+  margin-bottom: 1rem;
 }
 
 .post-content p,

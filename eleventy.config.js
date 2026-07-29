@@ -52,6 +52,10 @@ export default function (eleventyConfig) {
       .join("; ");
   });
   eleventyConfig.amendLibrary("md", (markdownLibrary) => {
+    markdownLibrary.set({
+      breaks: true
+    });
+
     markdownLibrary.use(texmath, {
       engine: katex,
       delimiters: ["dollars", "brackets"],
