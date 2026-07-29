@@ -7,6 +7,50 @@ if (container) {
   const encodeTheme = (css) =>
     `data:text/css;charset=utf-8,${encodeURIComponent(css)}`;
 
+  const getCommentTitleEntries = () => {
+    let configuredTitles;
+
+    try {
+      configuredTitles = JSON.parse(container.dataset.commentTitles || "{}");
+    } catch {
+      console.warn("[giscus] Ignoring invalid comment title configuration.");
+      return [];
+    }
+
+    if (
+      !configuredTitles ||
+      typeof configuredTitles !== "object" ||
+      Array.isArray(configuredTitles)
+    ) {
+      return [];
+    }
+
+    return Object.entries(configuredTitles).flatMap(
+      ([username, configuredUserTitles]) => {
+        if (
+          !/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/.test(
+            username
+          )
+        ) {
+          return [];
+        }
+
+        const userTitles = (
+          Array.isArray(configuredUserTitles)
+            ? configuredUserTitles
+            : [configuredUserTitles]
+        )
+          .filter((title) => typeof title === "string")
+          .map((title) => title.replace(/\s+/g, " ").trim())
+          .filter(Boolean);
+
+        return userTitles.length > 0 ? [{ username, userTitles }] : [];
+      }
+    );
+  };
+
+  const commentTitleEntries = getCommentTitleEntries();
+
   const frameObserver = new MutationObserver(() => {
     const iframe = container.querySelector("iframe.giscus-frame");
     if (!iframe || iframe.dataset.loadListenerAttached) return;
@@ -62,6 +106,54 @@ main .gsc-timeline > .gsc-comment:not(:has(~ .gsc-comment)) {
 }`;
   };
 
+  const createCommentTitleRules = () => {
+    if (commentTitleEntries.length === 0) return "";
+
+    const entries = commentTitleEntries.map(({ username, userTitles }) => {
+      const profileUrl = `https://github.com/${username}`;
+      const selectors = [
+        `main .gsc-comment-author:has(> a.gsc-comment-author-avatar[href="${profileUrl}" i])::after`,
+        `main .gsc-reply-author:has(> a[href="${profileUrl}" i])::after`
+      ];
+
+      return {
+        selectors,
+        content: JSON.stringify(userTitles.join(" · "))
+      };
+    });
+    const titleSelectors = entries.flatMap((entry) => entry.selectors);
+    const contentRules = entries
+      .map(
+        ({ selectors, content }) => `
+${selectors.join(",\n")} {
+  content: ${content};
+}`
+      )
+      .join("");
+
+    return `
+${titleSelectors.join(",\n")} {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.45rem;
+  color: var(--giscus-link-color);
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: nowrap;
+  background: color-mix(
+    in srgb,
+    var(--giscus-link-color) 12%,
+    transparent
+  );
+  border: 1px solid var(--giscus-link-color);
+  border-radius: 999px;
+}
+${contentRules}`;
+  };
+
   async function loadGiscus() {
     const themeResponse = await fetch(container.dataset.themeUrl);
     if (!themeResponse.ok) {
@@ -70,7 +162,8 @@ main .gsc-timeline > .gsc-comment:not(:has(~ .gsc-comment)) {
 
     const baseThemeCss = await themeResponse.text();
     await preloadThemeFonts(baseThemeCss);
-    themeCss = `${baseThemeCss}${createAccentRules()}`;
+    themeCss =
+      `${baseThemeCss}${createAccentRules()}${createCommentTitleRules()}`;
     const script = document.createElement("script");
 
     script.src = "https://giscus.app/client.js";

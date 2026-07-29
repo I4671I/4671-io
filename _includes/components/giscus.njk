@@ -10,6 +10,7 @@
       data-category="{{ site.giscus.category }}"
       data-category-id="{{ site.giscus.categoryId }}"
       data-theme-url="{{ '/assets/css/giscus.css' | assetPath }}"
+      data-comment-titles="{{ commentTitles | jsonStringify | escape }}"
     ></div>
     <script src="{{ '/assets/js/giscus.js' | assetPath }}" defer></script>
   </section>

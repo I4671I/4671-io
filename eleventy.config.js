@@ -262,6 +262,10 @@ export default function (eleventyConfig) {
     String(value).padStart(length, character)
   );
 
+  eleventyConfig.addFilter("jsonStringify", (value) =>
+    JSON.stringify(value ?? {})
+  );
+
   eleventyConfig.addFilter("tagUrl", (tag) =>
     sitePath(`/tags/${encodeURIComponent(String(tag))}/`)
   );

@@ -24,6 +24,17 @@ npm start
 npm run build
 ```
 
+## 评论区称号
+
+评论区称号配置位于`_data/commentTitles.json`，键为 GitHub 用户名。单个称号可以直接写成字符串，多个称号使用数组，并按数组顺序显示：
+
+```json
+{
+  "I4671I": "站长",
+  "another-user": ["作者", "摄影师"]
+}
+```
+
 ## 致谢
 
 本站使用了以下开源项目：
