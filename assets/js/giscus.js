@@ -25,15 +25,12 @@ if (container) {
   frameObserver.observe(container, { childList: true, subtree: true });
 
   const createAccentRules = () => {
-    const colors = [
-      "#e5c07b",
-      "#c678dd",
-      "#56b6c2",
-      "#e06c75",
-      "#61afef",
-      "#98c379",
-      "#d19a66"
-    ];
+    const colors = getComputedStyle(document.documentElement)
+      .getPropertyValue("--accent-palette")
+      .split(",")
+      .map((color) => color.trim())
+      .filter(Boolean);
+    if (colors.length === 0) return "";
 
     const pickColor = () =>
       colors[Math.floor(Math.random() * colors.length)];

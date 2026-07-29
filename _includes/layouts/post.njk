@@ -37,7 +37,7 @@ bodyClass: post-page
         {% endif %}
       </header>
       <div class="post-content">
-        {{ content | addHeadingIds | safe }}
+        {{ content | safe }}
         {% set previousPost = collections.posts | adjacentPost(page.url, -1) %}
         {% set nextPost = collections.posts | adjacentPost(page.url, 1) %}
         <nav class="post-navigation" aria-label="相邻文章">

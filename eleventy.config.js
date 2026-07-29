@@ -5,6 +5,7 @@ import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import katex from "katex";
 import texmath from "markdown-it-texmath";
 import { addMissingPostDates } from "./scripts/add-post-dates.js";
+import accentColors from "./_data/accent-colors.json" with { type: "json" };
 import site from "./_data/site.json" with { type: "json" };
 
 export default function (eleventyConfig) {
@@ -29,15 +30,7 @@ export default function (eleventyConfig) {
   eleventyConfig.ignores.add("content/about.md");
   eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
   eleventyConfig.addShortcode("accentPalette", () => {
-    const colors = [
-      "#e5c07b",
-      "#c678dd",
-      "#56b6c2",
-      "#e06c75",
-      "#61afef",
-      "#98c379",
-      "#d19a66"
-    ];
+    const colors = [...accentColors];
 
     for (let index = colors.length - 1; index > 0; index -= 1) {
       const randomIndex = Math.floor(Math.random() * (index + 1));
@@ -47,9 +40,12 @@ export default function (eleventyConfig) {
       ];
     }
 
-    return colors
-      .map((color, index) => `--accent-${index + 1}: ${color}`)
-      .join("; ");
+    return [
+      `--accent-palette: ${accentColors.join(", ")}`,
+      ...colors.map(
+        (color, index) => `--accent-${index + 1}: ${color}`
+      )
+    ].join("; ");
   });
   eleventyConfig.amendLibrary("md", (markdownLibrary) => {
     markdownLibrary.set({
@@ -61,6 +57,21 @@ export default function (eleventyConfig) {
       delimiters: ["dollars", "brackets"],
       katexOptions: {
         throwOnError: false
+      }
+    });
+
+    markdownLibrary.core.ruler.push("article_heading_ids", (state) => {
+      let headingIndex = 0;
+
+      for (const token of state.tokens) {
+        if (token.type !== "heading_open" || !/^h[1-4]$/.test(token.tag)) {
+          continue;
+        }
+
+        headingIndex += 1;
+        if (!token.attrGet("id")) {
+          token.attrSet("id", `section-${headingIndex}`);
+        }
       }
     });
 
@@ -259,20 +270,6 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("assetPath", assetPath);
 
   eleventyConfig.addFilter("articleHeadings", getArticleHeadings);
-
-  eleventyConfig.addFilter("addHeadingIds", (content) => {
-    const headings = getArticleHeadings(content);
-    let headingIndex = 0;
-
-    return String(content || "").replace(
-      /<h([1-4])([^>]*)>([\s\S]*?)<\/h\1>/gi,
-      (heading, level, attributes, innerHtml) => {
-        const articleHeading = headings[headingIndex++];
-        if (/\sid=(["']).*?\1/i.test(attributes)) return heading;
-        return `<h${level}${attributes} id="${articleHeading.id}">${innerHtml}</h${level}>`;
-      }
-    );
-  });
 
   eleventyConfig.addFilter("readingTime", (content) => {
     const text = String(content || "")
