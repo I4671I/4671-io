@@ -130,6 +130,17 @@ main .gsc-reply-header {
   padding-right: 3rem;
 }
 
+main
+  .gsc-comment-author
+  > a.gsc-comment-author-avatar:is(:hover, :focus-visible)
+  .link-primary,
+main
+  .gsc-reply-author
+  > a:not(.link-secondary):is(:hover, :focus-visible)
+  .link-primary {
+  color: var(--giscus-link-color) !important;
+}
+
 main .gsc-comment-author > a.link-secondary,
 main .gsc-reply-author > a.link-secondary {
   position: static;
@@ -187,21 +198,15 @@ main .gsc-reactions-count > a {
   display: none;
 }
 
+main .gsc-reactions-button,
 main .gsc-direct-reaction-button {
-  color: var(--giscus-link-color) !important;
-  border-color: color-mix(
-    in srgb,
-    var(--giscus-link-color) 55%,
-    var(--color-border-default)
-  ) !important;
+  color: var(--color-fg-muted) !important;
+  border-color: var(--color-border-default) !important;
 }
 
-main .gsc-direct-reaction-button:hover:enabled {
-  background-color: color-mix(
-    in srgb,
-    var(--giscus-link-color) 14%,
-    transparent
-  ) !important;
+main .gsc-reactions-button:is(:hover, :focus-visible),
+main .gsc-direct-reaction-button:is(:hover, :focus-visible):enabled {
+  border-color: var(--giscus-link-color) !important;
 }
 
 main .gsc-direct-reaction-button.has-reacted,
@@ -212,7 +217,6 @@ main .gsc-emoji-button.has-reacted {
     var(--giscus-link-color) 18%,
     transparent
   ) !important;
-  border-color: var(--giscus-link-color) !important;
 }
 
 main .gsc-direct-reaction-button.has-reacted:hover:enabled,
@@ -228,15 +232,9 @@ main .gsc-upvote-button.has-reacted {
   color: var(--giscus-link-color) !important;
 }
 
-main .gsc-comment-author .color-box-border-info,
-main .gsc-reply-author .color-box-border-info {
-  color: var(--giscus-link-color) !important;
-  background-color: color-mix(
-    in srgb,
-    var(--giscus-link-color) 12%,
-    transparent
-  );
-  border-color: var(--giscus-link-color) !important;
+main .gsc-comment-author > div:has(> .color-box-border-info),
+main .gsc-reply-author > div:has(> .color-box-border-info) {
+  display: none !important;
 }
 
 main .gsc-comment > div {

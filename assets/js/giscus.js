@@ -78,32 +78,61 @@ if (container) {
 
     const pickColor = () =>
       colors[Math.floor(Math.random() * colors.length)];
+    const createColorSequence = (length) => {
+      const sequence = [];
+
+      while (sequence.length < length) {
+        const shuffledColors = [...colors];
+
+        for (
+          let index = shuffledColors.length - 1;
+          index > 0;
+          index -= 1
+        ) {
+          const randomIndex = Math.floor(Math.random() * (index + 1));
+          [shuffledColors[index], shuffledColors[randomIndex]] = [
+            shuffledColors[randomIndex],
+            shuffledColors[index]
+          ];
+        }
+
+        sequence.push(...shuffledColors);
+      }
+
+      return sequence.slice(0, length);
+    };
     const discussionColor = pickColor();
     const commentBoxColor = pickColor();
-    const lastCommentColor = pickColor();
+    const blockSlots = colors.length;
+    const commentColors = createColorSequence(blockSlots);
+    const replyColors = createColorSequence(blockSlots * blockSlots);
 
-    const commentRules = colors.map((_, index) => `
-main .gsc-comment:nth-child(${colors.length}n + ${index + 1}) {
-  --giscus-link-color: ${pickColor()};
-}`).join("");
+    const commentRules = commentColors
+      .map((color, commentIndex) => {
+        const replyVariables = Array.from(
+          { length: blockSlots },
+          (_, replyIndex) =>
+            `--gsc-r${replyIndex + 1}:${
+              replyColors[commentIndex * blockSlots + replyIndex]
+            }`
+        ).join(";");
 
-    const replyRules = colors.map((_, index) => `
-main .gsc-reply:nth-child(${colors.length}n + ${index + 1}) {
-  --giscus-link-color: ${pickColor()};
-}`).join("");
+        return `main .gsc-timeline>.gsc-comment:nth-child(${blockSlots}n+${
+          commentIndex + 1
+        }){--giscus-link-color:${color};${replyVariables}}`;
+      })
+      .join("");
 
-    return `
-main {
-  --giscus-link-color: ${discussionColor};
-}
-${commentRules}
-${replyRules}
-main .gsc-comments > .gsc-comment-box {
-  --giscus-link-color: ${commentBoxColor};
-}
-main .gsc-timeline > .gsc-comment:not(:has(~ .gsc-comment)) {
-  --giscus-link-color: ${lastCommentColor};
-}`;
+    const replyRules = colors
+      .map(
+        (_, replyIndex) =>
+          `main .gsc-replies>.gsc-reply:nth-child(${blockSlots}n+${
+            replyIndex + 1
+          }){--giscus-link-color:var(--gsc-r${replyIndex + 1})}`
+      )
+      .join("");
+
+    return `main{--giscus-link-color:${discussionColor}}${commentRules}${replyRules}main .gsc-comments>.gsc-comment-box{--giscus-link-color:${commentBoxColor}}`;
   };
 
   const createCommentTitleRules = () => {
