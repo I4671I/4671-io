@@ -206,17 +206,17 @@ main .gsc-direct-reaction-button {
 
 main .gsc-reactions-button:is(:hover, :focus-visible),
 main .gsc-direct-reaction-button:is(:hover, :focus-visible):enabled {
-  border-color: var(--giscus-link-color) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--giscus-link-color) 14%,
+    transparent
+  ) !important;
 }
 
 main .gsc-direct-reaction-button.has-reacted,
 main .gsc-emoji-button.has-reacted {
   color: var(--giscus-link-color) !important;
-  background-color: color-mix(
-    in srgb,
-    var(--giscus-link-color) 18%,
-    transparent
-  ) !important;
+  border-color: var(--giscus-link-color) !important;
 }
 
 main .gsc-direct-reaction-button.has-reacted:hover:enabled,
