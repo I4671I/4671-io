@@ -284,6 +284,14 @@
   margin-bottom: 1rem;
 }
 
+.post-content li > p:only-child {
+  margin-bottom: 0;
+}
+
+.post-content .list-item-spaced {
+  margin-top: 1rem;
+}
+
 .post-content p,
 .post-content li,
 .post-content blockquote {

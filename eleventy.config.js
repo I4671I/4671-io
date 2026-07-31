@@ -86,6 +86,47 @@ export default function (eleventyConfig) {
         }
       }
     );
+    markdownLibrary.core.ruler.after(
+      "github-task-lists",
+      "spaced_list_items",
+      (state) => {
+        const sourceLines = state.src.split(/\r?\n/);
+        const listStack = [];
+
+        for (const token of state.tokens) {
+          if (
+            token.type === "bullet_list_open" ||
+            token.type === "ordered_list_open"
+          ) {
+            listStack.push({ hasItem: false });
+            continue;
+          }
+
+          if (
+            token.type === "bullet_list_close" ||
+            token.type === "ordered_list_close"
+          ) {
+            listStack.pop();
+            continue;
+          }
+
+          if (token.type !== "list_item_open" || !token.map) {
+            continue;
+          }
+
+          const currentList = listStack.at(-1);
+          const previousLine = sourceLines[token.map[0] - 1];
+
+          if (currentList?.hasItem && previousLine?.trim() === "") {
+            token.attrJoin("class", "list-item-spaced");
+          }
+
+          if (currentList) {
+            currentList.hasItem = true;
+          }
+        }
+      }
+    );
     markdownLibrary.use(footnote);
 
     markdownLibrary.use(texmath, {
