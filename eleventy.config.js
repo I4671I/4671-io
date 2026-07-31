@@ -3,6 +3,8 @@ import crypto from "node:crypto";
 import { RenderPlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import katex from "katex";
+import footnote from "markdown-it-footnote";
+import taskLists from "markdown-it-task-lists";
 import texmath from "markdown-it-texmath";
 import { addMissingPostDates } from "./scripts/add-post-dates.js";
 import accentColors from "./_data/accent-colors.json" with { type: "json" };
@@ -49,8 +51,12 @@ export default function (eleventyConfig) {
   });
   eleventyConfig.amendLibrary("md", (markdownLibrary) => {
     markdownLibrary.set({
-      breaks: true
+      breaks: true,
+      linkify: true
     });
+
+    markdownLibrary.use(taskLists);
+    markdownLibrary.use(footnote);
 
     markdownLibrary.use(texmath, {
       engine: katex,

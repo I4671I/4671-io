@@ -290,6 +290,19 @@
   overflow-wrap: anywhere;
 }
 
+.post-content .task-list-item {
+  list-style: none;
+}
+
+.post-content .task-list-item-checkbox {
+  width: 0.95em;
+  height: 0.95em;
+  margin: 0 0.5em 0 -1.45em;
+  vertical-align: -0.05em;
+  accent-color: var(--special-color);
+  opacity: 1;
+}
+
 .post-content img {
   display: block;
   max-width: 100%;
@@ -408,6 +421,21 @@
 
 .post-content a {
   overflow-wrap: anywhere;
+}
+
+.post-content .footnotes-sep {
+  margin-block: 2.5rem 1.5rem;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+.post-content .footnotes {
+  color: var(--muted);
+  font-size: 0.9em;
+}
+
+.post-content .footnote-backref {
+  white-space: nowrap;
 }
 
 .post-content .katex {
