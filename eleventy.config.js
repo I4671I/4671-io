@@ -56,6 +56,36 @@ export default function (eleventyConfig) {
     });
 
     markdownLibrary.use(taskLists);
+    markdownLibrary.core.ruler.before(
+      "github-task-lists",
+      "empty_task_list_items",
+      (state) => {
+        const sourceLines = state.src.split(/\r?\n/);
+
+        for (let index = 2; index < state.tokens.length; index += 1) {
+          const token = state.tokens[index];
+          const listItem = state.tokens[index - 2];
+
+          if (
+            token.type !== "inline" ||
+            listItem?.type !== "list_item_open" ||
+            !/^\[[ xX]\]$/.test(token.content) ||
+            !token.map ||
+            !/\[[ xX]\][ \t]+$/.test(sourceLines[token.map[0]] || "")
+          ) {
+            continue;
+          }
+
+          // markdown-it trims trailing whitespace before task-list plugins run.
+          // Restore one space only when it was present in the source so that
+          // "- [ ] " renders as an empty task while "- [ ]" remains text.
+          token.content += " ";
+          if (token.children?.[0]?.type === "text") {
+            token.children[0].content += " ";
+          }
+        }
+      }
+    );
     markdownLibrary.use(footnote);
 
     markdownLibrary.use(texmath, {
