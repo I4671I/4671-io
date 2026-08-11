@@ -298,6 +298,16 @@
   overflow-wrap: anywhere;
 }
 
+.post-content s {
+  color: var(--muted);
+  text-decoration-thickness: 1px;
+}
+
+.post-content mark {
+  color: var(--article-highlight-color, var(--special-color));
+  background: transparent;
+}
+
 .post-content .task-list-item {
   list-style: none;
 }

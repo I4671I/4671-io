@@ -4,6 +4,7 @@ import { RenderPlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import katex from "katex";
 import footnote from "markdown-it-footnote";
+import mark from "markdown-it-mark";
 import taskLists from "markdown-it-task-lists";
 import texmath from "markdown-it-texmath";
 import { addMissingPostDates } from "./scripts/add-post-dates.js";
@@ -55,6 +56,79 @@ export default function (eleventyConfig) {
       linkify: true
     });
 
+    markdownLibrary.inline.ruler.at("strikethrough", (state, silent) => {
+      const start = state.pos;
+      const marker = state.src.charCodeAt(start);
+
+      if (silent || marker !== 0x7e) {
+        return false;
+      }
+
+      const scanned = state.scanDelims(start, true);
+      let length = scanned.length;
+
+      if (length < 2) {
+        return false;
+      }
+
+      const previousCharacter = state.src[start - 1] || " ";
+      const nextCharacter = state.src[start + scanned.length] || " ";
+      const canOpen = scanned.can_open || !/\s/u.test(nextCharacter);
+      const canClose = scanned.can_close || !/\s/u.test(previousCharacter);
+
+      if (length % 2) {
+        const token = state.push("text", "", 0);
+        token.content = "~";
+        length -= 1;
+      }
+
+      for (let index = 0; index < length; index += 2) {
+        const token = state.push("text", "", 0);
+        token.content = "~~";
+        state.delimiters.push({
+          marker,
+          length: 0,
+          token: state.tokens.length - 1,
+          end: -1,
+          open: canOpen,
+          close: canClose
+        });
+      }
+
+      state.pos += scanned.length;
+      return true;
+    });
+
+    markdownLibrary.use(mark);
+    markdownLibrary.inline.ruler.before(
+      "emphasis",
+      "intraword_underscore_emphasis",
+      (state, silent) => {
+        const marker = state.src.charCodeAt(state.pos);
+
+        if (silent || marker !== 0x5f) {
+          return false;
+        }
+
+        const scanned = state.scanDelims(state.pos, true);
+
+        for (let index = 0; index < scanned.length; index += 1) {
+          const token = state.push("text", "", 0);
+          token.content = "_";
+          state.delimiters.push({
+            marker,
+            length: scanned.length,
+            token: state.tokens.length - 1,
+            end: -1,
+            open: scanned.can_open,
+            close: scanned.can_close
+          });
+        }
+
+        state.pos += scanned.length;
+        return true;
+      }
+    );
     markdownLibrary.use(taskLists);
     markdownLibrary.core.ruler.before(
       "github-task-lists",

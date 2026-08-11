@@ -35,6 +35,14 @@ function takeRandomColor() {
 }
 
 if (accentColors.length > 0) {
+  const articleContent = document.querySelector(".post-content");
+  if (articleContent) {
+    articleContent.style.setProperty(
+      "--article-highlight-color",
+      takeRandomColor()
+    );
+  }
+
   for (const target of accentTargets) {
     target.style.setProperty("--special-color", takeRandomColor());
   }
