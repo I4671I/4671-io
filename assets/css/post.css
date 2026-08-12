@@ -298,13 +298,22 @@
   overflow-wrap: anywhere;
 }
 
+.post-content strong {
+  font-weight: 700;
+  -webkit-text-stroke: 0.012em currentColor;
+}
+
 .post-content s {
   color: var(--muted);
   text-decoration-thickness: 1px;
 }
 
-.post-content mark {
+.post-content mark,
+.post-content mark :where(*) {
   color: var(--article-highlight-color, var(--special-color));
+}
+
+.post-content mark {
   background: transparent;
 }
 
