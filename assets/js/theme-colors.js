@@ -34,13 +34,19 @@ function takeRandomColor() {
   return colorBag.pop();
 }
 
+function pickIndependentRandomColor() {
+  return accentColors[Math.floor(Math.random() * accentColors.length)];
+}
+
 if (accentColors.length > 0) {
   const articleContent = document.querySelector(".post-content");
   if (articleContent) {
-    articleContent.style.setProperty(
-      "--article-highlight-color",
-      takeRandomColor()
-    );
+    for (const highlight of articleContent.querySelectorAll("mark")) {
+      highlight.style.setProperty(
+        "--article-highlight-color",
+        pickIndependentRandomColor()
+      );
+    }
   }
 
   for (const target of accentTargets) {

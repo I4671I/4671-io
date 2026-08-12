@@ -3,6 +3,7 @@ title: 年轻人的第一台服务器
 date: 2026-08-11
 description: 虽然是丐版
 tags:
+  - 经验分享
   - 摸
 ---
 
