@@ -1,9 +1,11 @@
 const rootStyles = getComputedStyle(document.documentElement);
-const accentColors = rootStyles
-  .getPropertyValue("--accent-palette")
-  .split(",")
-  .map((color) => color.trim())
-  .filter(Boolean);
+const accentColors = [];
+
+for (let index = 1; ; index += 1) {
+  const color = rootStyles.getPropertyValue(`--accent-${index}`).trim();
+  if (!color) break;
+  accentColors.push(color);
+}
 
 const accentTargets = document.querySelectorAll([
   "a",
@@ -16,25 +18,7 @@ const accentTargets = document.querySelectorAll([
   ".sidebar-toggle"
 ].join(","));
 
-let colorBag = [];
-
-function takeRandomColor() {
-  if (colorBag.length === 0) {
-    colorBag = [...accentColors];
-
-    for (let index = colorBag.length - 1; index > 0; index -= 1) {
-      const randomIndex = Math.floor(Math.random() * (index + 1));
-      [colorBag[index], colorBag[randomIndex]] = [
-        colorBag[randomIndex],
-        colorBag[index]
-      ];
-    }
-  }
-
-  return colorBag.pop();
-}
-
-function pickIndependentRandomColor() {
+function pickRandomColor() {
   return accentColors[Math.floor(Math.random() * accentColors.length)];
 }
 
@@ -44,19 +28,18 @@ if (accentColors.length > 0) {
     for (const highlight of articleContent.querySelectorAll("mark")) {
       highlight.style.setProperty(
         "--article-highlight-color",
-        pickIndependentRandomColor()
+        pickRandomColor()
       );
     }
   }
 
   for (const target of accentTargets) {
-    target.style.setProperty("--special-color", takeRandomColor());
+    target.style.setProperty("--special-color", pickRandomColor());
   }
 
   for (const wrapper of document.querySelectorAll(".table-wrapper")) {
-    const tableColor = takeRandomColor();
     for (const hint of wrapper.querySelectorAll(".table-scroll-hint")) {
-      hint.style.setProperty("--special-color", tableColor);
+      hint.style.setProperty("--special-color", pickRandomColor());
     }
   }
 }

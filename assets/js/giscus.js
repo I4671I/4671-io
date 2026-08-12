@@ -69,43 +69,27 @@ if (container) {
   frameObserver.observe(container, { childList: true, subtree: true });
 
   const createAccentRules = () => {
-    const colors = getComputedStyle(document.documentElement)
-      .getPropertyValue("--accent-palette")
-      .split(",")
-      .map((color) => color.trim())
-      .filter(Boolean);
+    const rootStyles = getComputedStyle(document.documentElement);
+    const colors = [];
+
+    for (let index = 1; ; index += 1) {
+      const color = rootStyles.getPropertyValue(`--accent-${index}`).trim();
+      if (!color) break;
+      colors.push(color);
+    }
+
     if (colors.length === 0) return "";
 
     const pickColor = () =>
       colors[Math.floor(Math.random() * colors.length)];
-    const createColorSequence = (length) => {
-      const sequence = [];
-
-      while (sequence.length < length) {
-        const shuffledColors = [...colors];
-
-        for (
-          let index = shuffledColors.length - 1;
-          index > 0;
-          index -= 1
-        ) {
-          const randomIndex = Math.floor(Math.random() * (index + 1));
-          [shuffledColors[index], shuffledColors[randomIndex]] = [
-            shuffledColors[randomIndex],
-            shuffledColors[index]
-          ];
-        }
-
-        sequence.push(...shuffledColors);
-      }
-
-      return sequence.slice(0, length);
-    };
     const discussionColor = pickColor();
     const commentBoxColor = pickColor();
     const blockSlots = colors.length;
-    const commentColors = createColorSequence(blockSlots);
-    const replyColors = createColorSequence(blockSlots * blockSlots);
+    const commentColors = Array.from({ length: blockSlots }, pickColor);
+    const replyColors = Array.from(
+      { length: blockSlots * blockSlots },
+      pickColor
+    );
 
     const commentRules = commentColors
       .map((color, commentIndex) => {
