@@ -17,7 +17,7 @@ permalink: posts.html
   {% set yearGroups = posts | groupByYear %}
   <section class="archive-years" aria-label="按年份分类的全部文章">
     {% for group in yearGroups %}
-      <details class="archive-year-group" {% if loop.first %}open{% endif %}>
+      <details class="archive-year-group" open>
         <summary>
           <span>{{ group.year }}</span>
           <span>{{ group.posts.length }} 篇</span>
