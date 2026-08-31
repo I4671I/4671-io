@@ -343,7 +343,11 @@
 }
 
 .post-content .markdown-image-after-text {
-  margin-top: calc(0.5lh - 0.5em);
+  margin-top: calc(0.5em - 5px);
+}
+
+.post-content p + p > .markdown-image:only-child {
+  padding-top: calc(0.5lh - 0.5em);
 }
 
 .post-content .markdown-image img {
