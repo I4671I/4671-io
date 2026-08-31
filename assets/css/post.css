@@ -342,6 +342,10 @@
   margin-block: 0;
 }
 
+.post-content .markdown-image-after-text {
+  margin-top: calc(0.5lh - 0.5em);
+}
+
 .post-content .markdown-image img {
   margin: 0 auto;
 }

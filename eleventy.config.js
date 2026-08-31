@@ -211,6 +211,45 @@ export default function (eleventyConfig) {
       }
     });
 
+    markdownLibrary.core.ruler.after(
+      "inline",
+      "remove_breaks_beside_captioned_images",
+      (state) => {
+        for (const token of state.tokens) {
+          if (token.type !== "inline" || !token.children) {
+            continue;
+          }
+
+          for (let index = token.children.length - 1; index >= 0; index -= 1) {
+            const child = token.children[index];
+
+            if (child.type !== "image" || !child.content.trim()) {
+              continue;
+            }
+
+            if (
+              token.children[index + 1]?.type === "softbreak" ||
+              token.children[index + 1]?.type === "hardbreak"
+            ) {
+              token.children.splice(index + 1, 1);
+            }
+
+            if (
+              token.children[index - 1]?.type === "softbreak" ||
+              token.children[index - 1]?.type === "hardbreak"
+            ) {
+              child.meta = {
+                ...child.meta,
+                followsTextWithoutBlankLine: true
+              };
+              token.children.splice(index - 1, 1);
+              index -= 1;
+            }
+          }
+        }
+      }
+    );
+
     const renderImage = markdownLibrary.renderer.rules.image;
     markdownLibrary.renderer.rules.image = (
       tokens,
@@ -232,9 +271,12 @@ export default function (eleventyConfig) {
         options,
         environment
       );
+      const imageClass = token.meta?.followsTextWithoutBlankLine
+        ? "markdown-image markdown-image-after-text"
+        : "markdown-image";
 
       return (
-        '<span class="markdown-image">' +
+        `<span class="${imageClass}">` +
         image +
         (caption
           ? `<span class="markdown-image-caption">${markdownLibrary.utils.escapeHtml(caption)}</span>`
