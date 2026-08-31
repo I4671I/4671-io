@@ -346,7 +346,7 @@
   margin-top: calc(0.5em - 5px);
 }
 
-.post-content p + p > .markdown-image:only-child {
+.post-content .markdown-image-after-blank-line {
   padding-top: calc(0.5lh - 0.5em);
 }
 

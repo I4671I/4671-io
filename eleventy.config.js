@@ -215,16 +215,29 @@ export default function (eleventyConfig) {
       "inline",
       "remove_breaks_beside_captioned_images",
       (state) => {
+        const sourceLines = state.src.split(/\r?\n/);
+
         for (const token of state.tokens) {
           if (token.type !== "inline" || !token.children) {
             continue;
           }
 
+          const followsBlankLine =
+            token.map?.[0] > 0 &&
+            sourceLines[token.map[0] - 1]?.trim() === "";
+
           for (let index = token.children.length - 1; index >= 0; index -= 1) {
             const child = token.children[index];
 
-            if (child.type !== "image" || !child.content.trim()) {
+            if (child.type !== "image") {
               continue;
+            }
+
+            if (index === 0 && followsBlankLine) {
+              child.meta = {
+                ...child.meta,
+                followsBlankLine: true
+              };
             }
 
             if (
@@ -271,12 +284,18 @@ export default function (eleventyConfig) {
         options,
         environment
       );
-      const imageClass = token.meta?.followsTextWithoutBlankLine
-        ? "markdown-image markdown-image-after-text"
-        : "markdown-image";
+      const imageClasses = ["markdown-image"];
+
+      if (token.meta?.followsTextWithoutBlankLine) {
+        imageClasses.push("markdown-image-after-text");
+      }
+
+      if (token.meta?.followsBlankLine) {
+        imageClasses.push("markdown-image-after-blank-line");
+      }
 
       return (
-        `<span class="${imageClass}">` +
+        `<span class="${imageClasses.join(" ")}">` +
         image +
         (caption
           ? `<span class="markdown-image-caption">${markdownLibrary.utils.escapeHtml(caption)}</span>`
