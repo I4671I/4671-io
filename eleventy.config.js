@@ -211,6 +211,38 @@ export default function (eleventyConfig) {
       }
     });
 
+    const renderImage = markdownLibrary.renderer.rules.image;
+    markdownLibrary.renderer.rules.image = (
+      tokens,
+      index,
+      options,
+      environment,
+      renderer
+    ) => {
+      const image = renderImage(
+        tokens,
+        index,
+        options,
+        environment,
+        renderer
+      );
+      const token = tokens[index];
+      const caption = renderer.renderInlineAsText(
+        token.children || [],
+        options,
+        environment
+      );
+
+      return (
+        '<span class="markdown-image">' +
+        image +
+        (caption
+          ? `<span class="markdown-image-caption">${markdownLibrary.utils.escapeHtml(caption)}</span>`
+          : "") +
+        "</span>"
+      );
+    };
+
     markdownLibrary.core.ruler.push("article_heading_ids", (state) => {
       let headingIndex = 0;
 

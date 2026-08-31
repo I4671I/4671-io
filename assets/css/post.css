@@ -337,6 +337,23 @@
   margin-block: 2rem;
 }
 
+.post-content .markdown-image {
+  display: block;
+  margin-block: 0;
+}
+
+.post-content .markdown-image img {
+  margin: 0 auto;
+}
+
+.post-content .markdown-image-caption {
+  display: block;
+  margin-top: 0.6rem;
+  color: var(--muted);
+  font-size: inherit;
+  text-align: center;
+}
+
 .table-wrapper {
   position: relative;
   width: 100%;
