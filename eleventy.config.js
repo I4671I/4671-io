@@ -263,7 +263,16 @@ export default function (eleventyConfig) {
       }
     );
 
-    const renderImage = markdownLibrary.renderer.rules.image;
+    const imageFallback =
+      '<span class="markdown-image-fallback" role="img" aria-label="图片加载失败">' +
+      '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+      '<rect x="5" y="7" width="38" height="34" rx="4" />' +
+      '<circle cx="33" cy="17" r="3.5" />' +
+      '<path d="m8 35 10.2-10.2a3 3 0 0 1 4.2 0l5.1 5.1 3.1-3.1a3 3 0 0 1 4.2 0L40 32" />' +
+      '<path d="M19 41h20a4 4 0 0 0 4-4V17" />' +
+      "</svg>" +
+      "</span>";
+
     markdownLibrary.renderer.rules.image = (
       tokens,
       index,
@@ -271,19 +280,14 @@ export default function (eleventyConfig) {
       environment,
       renderer
     ) => {
-      const image = renderImage(
-        tokens,
-        index,
-        options,
-        environment,
-        renderer
-      );
       const token = tokens[index];
       const caption = renderer.renderInlineAsText(
         token.children || [],
         options,
         environment
       );
+      token.attrSet("alt", "");
+      const image = renderer.renderToken(tokens, index, options);
       const imageClasses = ["markdown-image"];
 
       if (token.meta?.followsTextWithoutBlankLine) {
@@ -297,6 +301,7 @@ export default function (eleventyConfig) {
       return (
         `<span class="${imageClasses.join(" ")}">` +
         image +
+        imageFallback +
         (caption
           ? `<span class="markdown-image-caption">${markdownLibrary.utils.escapeHtml(caption)}</span>`
           : "") +

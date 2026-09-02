@@ -280,3 +280,18 @@ if (tableWrappers.length > 0) {
     for (const wrapper of tableWrappers) updateTableScrollHints(wrapper);
   });
 }
+
+function showImageFallback(image) {
+  image.closest(".markdown-image")?.classList.add("is-error");
+}
+
+for (const image of document.querySelectorAll(".markdown-image img")) {
+  if (image.complete && image.naturalWidth === 0) {
+    showImageFallback(image);
+    continue;
+  }
+
+  image.addEventListener("error", () => showImageFallback(image), {
+    once: true
+  });
+}

@@ -354,6 +354,34 @@
   margin: 0 auto;
 }
 
+.post-content .markdown-image-fallback {
+  display: none;
+  width: 100%;
+  min-height: clamp(9rem, 24vw, 13rem);
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.post-content .markdown-image.is-error img {
+  display: none;
+}
+
+.post-content .markdown-image.is-error .markdown-image-fallback {
+  display: grid;
+  place-items: center;
+}
+
+.post-content .markdown-image-fallback svg {
+  width: clamp(3rem, 8vw, 4rem);
+  height: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
 .post-content .markdown-image-caption {
   display: block;
   margin-top: 0.6rem;
