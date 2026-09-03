@@ -233,6 +233,39 @@ export default function (eleventyConfig) {
               continue;
             }
 
+            const widthToken = token.children[index + 1];
+            const widthMatch =
+              widthToken?.type === "text"
+                ? widthToken.content.match(
+                    /^\{width=([+-]?(?:\d+(?:\.\d+)?|\.\d+))(%)?\}/
+                  )
+                : null;
+
+            if (widthMatch) {
+              const widthValue = Number(widthMatch[1]);
+              const isPercentage = Boolean(widthMatch[2]);
+              const maximumWidth = isPercentage ? 100 : 1;
+
+              if (
+                Number.isFinite(widthValue) &&
+                widthValue >= 0 &&
+                widthValue <= maximumWidth
+              ) {
+                child.meta = {
+                  ...child.meta,
+                  width: `${isPercentage ? widthValue : widthValue * 100}%`
+                };
+              }
+
+              widthToken.content = widthToken.content.slice(
+                widthMatch[0].length
+              );
+
+              if (!widthToken.content) {
+                token.children.splice(index + 1, 1);
+              }
+            }
+
             if (index === 0 && followsBlankLine) {
               child.meta = {
                 ...child.meta,
@@ -289,6 +322,9 @@ export default function (eleventyConfig) {
       token.attrSet("alt", "");
       const image = renderer.renderToken(tokens, index, options);
       const imageClasses = ["markdown-image"];
+      const widthStyle = typeof token.meta?.width === "string"
+        ? ` style="--markdown-image-width: ${token.meta.width}"`
+        : "";
 
       if (token.meta?.followsTextWithoutBlankLine) {
         imageClasses.push("markdown-image-after-text");
@@ -299,7 +335,7 @@ export default function (eleventyConfig) {
       }
 
       return (
-        `<span class="${imageClasses.join(" ")}">` +
+        `<span class="${imageClasses.join(" ")}"${widthStyle}>` +
         '<span class="markdown-image-frame">' +
         imageFallback +
         image +

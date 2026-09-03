@@ -339,7 +339,10 @@
 
 .post-content .markdown-image {
   display: block;
+  width: var(--markdown-image-width, 100%);
   margin-block: 0;
+  margin-inline: auto;
+  overflow: hidden;
 }
 
 .post-content .markdown-image-after-text {
@@ -360,6 +363,7 @@
   grid-row: 1;
   position: relative;
   z-index: 1;
+  width: 100%;
   margin: 0 auto;
 }
 
