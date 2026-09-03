@@ -282,16 +282,36 @@ if (tableWrappers.length > 0) {
 }
 
 function showImageFallback(image) {
-  image.closest(".markdown-image")?.classList.add("is-error");
+  const container = image.closest(".markdown-image");
+  if (!container) return;
+
+  container.classList.remove("is-loaded");
+  container.classList.add("is-error");
+  container
+    .querySelector(".markdown-image-fallback")
+    ?.setAttribute("aria-label", "图片加载失败");
+}
+
+function showLoadedImage(image) {
+  const container = image.closest(".markdown-image");
+  if (!container) return;
+
+  container.classList.remove("is-error");
+  container.classList.add("is-loaded");
 }
 
 for (const image of document.querySelectorAll(".markdown-image img")) {
-  if (image.complete && image.naturalWidth === 0) {
-    showImageFallback(image);
-    continue;
-  }
+  image.addEventListener("load", () => showLoadedImage(image), { once: true });
 
   image.addEventListener("error", () => showImageFallback(image), {
     once: true
   });
+
+  if (image.complete) {
+    if (image.naturalWidth > 0) {
+      showLoadedImage(image);
+    } else {
+      showImageFallback(image);
+    }
+  }
 }

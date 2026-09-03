@@ -264,7 +264,7 @@ export default function (eleventyConfig) {
     );
 
     const imageFallback =
-      '<span class="markdown-image-fallback" role="img" aria-label="图片加载失败">' +
+      '<span class="markdown-image-fallback" role="img" aria-label="图片正在加载">' +
       '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
       '<rect x="5" y="7" width="38" height="34" rx="4" />' +
       '<circle cx="33" cy="17" r="3.5" />' +
@@ -300,8 +300,10 @@ export default function (eleventyConfig) {
 
       return (
         `<span class="${imageClasses.join(" ")}">` +
-        image +
+        '<span class="markdown-image-frame">' +
         imageFallback +
+        image +
+        "</span>" +
         (caption
           ? `<span class="markdown-image-caption">${markdownLibrary.utils.escapeHtml(caption)}</span>`
           : "") +
