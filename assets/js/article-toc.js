@@ -287,9 +287,6 @@ function showImageFallback(image) {
 
   container.classList.remove("is-loaded");
   container.classList.add("is-error");
-  container
-    .querySelector(".markdown-image-fallback")
-    ?.setAttribute("aria-label", "图片加载失败");
 }
 
 function showLoadedImage(image) {

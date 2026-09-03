@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import crypto from "node:crypto";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { RenderPlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import katex from "katex";
@@ -7,11 +9,74 @@ import footnote from "markdown-it-footnote";
 import mark from "markdown-it-mark";
 import taskLists from "markdown-it-task-lists";
 import texmath from "markdown-it-texmath";
+import sharp from "sharp";
 import { addMissingPostDates } from "./scripts/add-post-dates.js";
 import accentColors from "./_data/accent-colors.json" with { type: "json" };
 import site from "./_data/site.json" with { type: "json" };
 
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
+const imageRoot = path.join(projectRoot, "assets/images");
+const imageDimensions = new Map();
+const missingImageWarnings = new Set();
+const supportedImagePattern = /\.(?:avif|gif|jpe?g|png|tiff?|webp)$/i;
+
+const getImageFiles = (directory) =>
+  fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const filePath = path.join(directory, entry.name);
+    return entry.isDirectory() ? getImageFiles(filePath) : [filePath];
+  });
+
+const loadImageDimensions = async () => {
+  imageDimensions.clear();
+  missingImageWarnings.clear();
+
+  if (!fs.existsSync(imageRoot)) {
+    return;
+  }
+
+  const imageFiles = getImageFiles(imageRoot).filter((filePath) =>
+    supportedImagePattern.test(filePath)
+  );
+
+  await Promise.all(
+    imageFiles.map(async (filePath) => {
+      try {
+        const metadata = await sharp(filePath).metadata();
+        const dimensions = metadata.autoOrient || metadata;
+
+        if (dimensions.width && dimensions.height) {
+          const imageUrl = `/${path
+            .relative(projectRoot, filePath)
+            .split(path.sep)
+            .join("/")}`;
+          imageDimensions.set(imageUrl, {
+            width: dimensions.width,
+            height: dimensions.height
+          });
+        }
+      } catch {
+        // Referenced unreadable images are reported by the Markdown renderer.
+      }
+    })
+  );
+};
+
+const getLocalImageUrl = (source) => {
+  const imageUrl = String(source || "").split(/[?#]/, 1)[0];
+
+  if (!imageUrl.startsWith("/assets/images/")) {
+    return null;
+  }
+
+  try {
+    return decodeURIComponent(imageUrl);
+  } catch {
+    return imageUrl;
+  }
+};
+
 export default function (eleventyConfig) {
+  eleventyConfig.on("eleventy.before", loadImageDimensions);
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addPlugin(feedPlugin, {
     type: "atom",
@@ -297,14 +362,7 @@ export default function (eleventyConfig) {
     );
 
     const imageFallback =
-      '<span class="markdown-image-fallback" role="img" aria-label="图片正在加载">' +
-      '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
-      '<rect x="5" y="7" width="38" height="34" rx="4" />' +
-      '<circle cx="33" cy="17" r="3.5" />' +
-      '<path d="m8 35 10.2-10.2a3 3 0 0 1 4.2 0l5.1 5.1 3.1-3.1a3 3 0 0 1 4.2 0L40 32" />' +
-      '<path d="M19 41h20a4 4 0 0 0 4-4V17" />' +
-      "</svg>" +
-      "</span>";
+      '<span class="markdown-image-fallback" aria-hidden="true"></span>';
 
     markdownLibrary.renderer.rules.image = (
       tokens,
@@ -320,10 +378,42 @@ export default function (eleventyConfig) {
         environment
       );
       token.attrSet("alt", "");
+      const source = token.attrGet("src");
+      const localImageUrl = getLocalImageUrl(source);
+      const dimensions = localImageUrl
+        ? imageDimensions.get(localImageUrl)
+        : null;
+
+      if (dimensions) {
+        token.attrSet("width", String(dimensions.width));
+        token.attrSet("height", String(dimensions.height));
+      } else if (
+        localImageUrl &&
+        !missingImageWarnings.has(localImageUrl)
+      ) {
+        missingImageWarnings.add(localImageUrl);
+        console.warn(
+          `[images] 未找到或无法读取图片：${localImageUrl}；将使用居中的灰色正方形占位。`
+        );
+      }
+
       const image = renderer.renderToken(tokens, index, options);
       const imageClasses = ["markdown-image"];
-      const widthStyle = typeof token.meta?.width === "string"
-        ? ` style="--markdown-image-width: ${token.meta.width}"`
+      const imageStyles = [];
+
+      if (typeof token.meta?.width === "string") {
+        imageStyles.push(`--markdown-image-width: ${token.meta.width}`);
+      }
+
+      if (dimensions) {
+        imageClasses.push("markdown-image-has-dimensions");
+        imageStyles.push(
+          `--markdown-image-aspect-ratio: ${dimensions.width} / ${dimensions.height}`
+        );
+      }
+
+      const imageStyle = imageStyles.length
+        ? ` style="${imageStyles.join("; ")}"`
         : "";
 
       if (token.meta?.followsTextWithoutBlankLine) {
@@ -335,7 +425,7 @@ export default function (eleventyConfig) {
       }
 
       return (
-        `<span class="${imageClasses.join(" ")}"${widthStyle}>` +
+        `<span class="${imageClasses.join(" ")}"${imageStyle}>` +
         '<span class="markdown-image-frame">' +
         imageFallback +
         image +
